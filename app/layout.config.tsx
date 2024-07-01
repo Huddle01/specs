@@ -4,15 +4,8 @@ import type { BaseLayoutProps, DocsLayoutProps } from 'fumadocs-ui/layout';
 // shared configuration
 export const baseOptions: BaseLayoutProps = {
   nav: {
-    title: 'My App',
+    title: 'Huddle01 Specs',
   },
-  links: [
-    {
-      text: 'Documentation',
-      url: '/docs',
-      active: 'nested-url',
-    },
-  ],
 };
 
 // docs layout configuration
