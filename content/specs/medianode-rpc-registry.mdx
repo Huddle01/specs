@@ -1,0 +1,166 @@
+---
+title: MediaNode RPC Endpoints for Registry
+---
+
+The media node exposes several RPC endpoints to handle requests from the registry network.
+
+## pingMomo
+
+**Description:** Responds to ping requests from the discovery service.
+
+**Request:** PingRequest
+
+```proto
+message PingRequest {}
+```
+
+**Response:** Pong
+
+```proto
+message Pong {
+       message: string;
+     }
+```
+
+## getMomoStatus
+
+**Description:** Provides the status of the media node, including uptime and connection stats.
+
+**Request:** GetMomoStatusRequest
+
+```proto
+message GetMomoStatusRequest {}
+```
+
+**Response:** MomoStatus
+```proto
+message MyServer {
+  string ip = 1;
+  string countryCode = 2;
+  string city = 3;
+}
+
+message EdgeServer {
+  string city = 1;
+  string countryCode = 2;
+  int32 distance = 3;
+  string region = 4;
+}
+
+message ConnectionStats {
+  int32 downloadSpeed = 1;
+  int32 uploadSpeed = 2;
+  int32 latency = 3;
+  int32 jitter = 4;
+  MyServer myServer = 5;
+  EdgeServer edgeServer = 6;
+}
+
+message MomoStatus{
+  string momoId = 1;
+  int64 timestamp = 2;
+  int64 uptime = 3;
+  ConnectionStats connectionStats = 4;
+}
+```
+
+
+## createPipeTransport
+**Description:** Creates a pipe transport for media streaming.
+**Request:** CreatePipeTransportRequest
+```proto
+message CreatePipeTransportRequest {
+    string roomId = 1;
+    string remoteIp = 2;
+    string remoteMomoId = 3;
+ }
+```
+**Response:** CreatePipeTransportResponse
+```proto
+ message CreatePipeTransportResponse {
+    string roomId = 1;
+    string localMomoId = 2;
+    string remoteMomoId = 3;
+    string transportId = 4;
+    ProtoSrtpParameters srtpParameters = 5;
+    ProtoTransportTuple tuple = 6;
+ }
+```
+
+## connectPipeTransport
+**Description:** Connects an existing pipe transport.
+**Request:** ConnectPipeTransportRequest
+```proto
+ message ConnectPipeTransportRequest {
+    string roomId = 1;
+    string remoteIp = 2;
+    string remoteMomoId = 3;
+
+    string transportId = 4;
+    ProtoSrtpParameters srtpParameters = 5;
+    ProtoTransportTuple tuple = 6;
+ }
+```
+**Response:** ConnectPipeTransportResponse
+```proto
+ message ConnectPipeTransportResponse {
+    string roomId = 1;
+    string remoteMomoId = 2;
+    string remoteMomoIp = 3;
+ }
+```
+
+## sendChallenge
+**Description:** Handles incoming challenge requests.
+**Request:** SendChallengeRequest
+```proto
+message SendChallengeRequest {
+  string challengerMomoId = 1;
+}
+```
+**Response:** SendChallengeResponse
+```proto
+message SendChallengeResponse {
+  PipeConsumeResponse consumeResponse = 1;
+  string challengerMomoId = 2;
+  string producerId = 3;
+}
+```
+
+## monitorChallenge
+**Description:** Monitors an ongoing challenge.
+**Request:** MonitorChallengeRequest
+```proto
+message MonitorChallengeRequest {
+  PipeProduceRequest produceRequest = 1;
+  string proverMomoId = 2;
+  string producerId = 3;
+}
+```
+**Response:** MonitorChallengeResponse
+```proto
+message MonitorChallengeResponse {
+  PipeProduceResponse produceResponse = 1;
+  string proverMomoId = 2;
+}
+```
+
+## stopChallenge
+**Description:** Stops an ongoing challenge.
+**Request:** StopChallengeRequest
+```proto
+message StopChallengeRequest {
+  string challengerMomoId = 1;
+  string proverMomoId = 2;
+  string role = 3;
+}
+```
+**Response:** StopChallengeResponse
+
+```proto
+message StopChallengeResponse {
+  string challengerMomoId = 1;
+  string proverMomoId = 2;
+  ScoreSnapshot scoreSnapshot = 3;
+}
+```
