@@ -6,5 +6,4 @@ export const { getPage, getPages, pageTree } = loader({
   baseUrl: '/specs',
   rootDir: 'specs',
   source: createMDXSource(map),
-
 });

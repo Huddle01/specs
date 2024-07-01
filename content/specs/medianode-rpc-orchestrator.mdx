@@ -5,36 +5,29 @@ title: MediaNode RPC Endpoints for Orchestrator
 The media node exposes several RPC endpoints to handle requests from the Orchestrator.
 
 ## createRoom
-**Description:** Creates a new room.
 
-**Request:** CreateRoomRequest
+Creates a new room.
+
 ```proto
 message CreateRoomRequest {
-       roomId: string;
-     }
-```
+    string roomId = 1;
+}
 
-**Response:** CreateRoomResponse
-
-```proto
 message CreateRoomResponse {
    string roomId = 1;
 }
 ```
 
 ## joinRoom
-**Description:** Joins an existing room.
+ Joins an existing room.
 
-**Request:** JoinRoomRequest
+
 ```proto
 message JoinRoomRequest {
    string roomId = 1;
    string peerId = 2;
  }
- ```
 
-**Response:** JoinRoomResponse
-```proto
 message JoinRoomResponse {
    string roomId = 1;
    string peerId = 2;
@@ -43,9 +36,8 @@ message JoinRoomResponse {
 ```
 
 ## createTransportOnServer
-**Description:** Creates a transport on the server.
+ Creates a transport on the server.
 
-**Request:** CreateTransportRequest
 ```proto
 message CreateTransportRequest {
    string roomId = 1;
@@ -53,12 +45,7 @@ message CreateTransportRequest {
    string transportType = 3;
    ProtoSctpCapabilities sctpCapabilities = 4;
 }
-```
 
-
-**Response:** CreateTransportResponse
-
-```proto
 message CreateTransportResponse {
    string peerId = 1;
    ProtoTransportSDPInfo transportSDPInfo = 4;
@@ -66,9 +53,7 @@ message CreateTransportResponse {
 ```
 
 ## connectTransportOnServer
-**Description:** Connects a transport on the server.
-
-**Request:** ConnectTransportRequest
+ Connects a transport on the server.
 
 ```proto
 message ConnectTransportRequest {
@@ -77,11 +62,7 @@ message ConnectTransportRequest {
    string transportType = 3;
    ProtoDtlsParameters dtlsParameters = 4;
 }
-```
 
-**Response:** ConnectTransportResponse
-
-```proto
 message ConnectTransportResponse {
    string peerId = 1;
    string transportId = 2;
@@ -89,9 +70,7 @@ message ConnectTransportResponse {
 ```
 
 ## produce
-**Description:** Produces media.
-
-**Request:** ProduceRequest
+ Produces media.
 
 ```proto
 message ProduceRequest {
@@ -102,11 +81,7 @@ message ProduceRequest {
    string label = 5;
    ProtoRtpParameters rtpParameters = 6;
 }
-```
 
-**Response:** ProduceResponse
-
-```proto
 message ProduceResponse {
    string peerId = 1;
    string producerId = 2;
@@ -115,9 +90,8 @@ message ProduceResponse {
 ```
 
 ## produceData
-**Description:** Produces data.
+ Produces data.
 
-**Request:** ProduceDataRequest
 ```proto
 message ProduceDataRequest {
    string peerId = 1;
@@ -128,10 +102,7 @@ message ProduceDataRequest {
    string transportId = 6;
    map<string, string> appData = 7;
 }
-```
 
-**Response:** ProduceDataResponse
-```proto
 message ProduceDataResponse {
    string id = 1;
    string dataProducerId = 2;
@@ -144,7 +115,7 @@ message ProduceDataResponse {
 ```
 
 ## consume
-**Description:** Consumes media.
+ Consumes media.
 
 **Request:** ConsumeRequest
 ```proto
@@ -156,9 +127,7 @@ message ConsumeRequest {
    string momoId = 5;
    string label = 6;
 }
-```
-**Response:** ConsumeResponse
-```proto
+
 message ConsumeResponse {
    string peerId = 1;
    string label = 2;
@@ -171,9 +140,8 @@ message ConsumeResponse {
 ```
 
 ## createPipeTransport
-**Description:** Creates a pipe transport.
+ Creates a pipe transport.
 
-**Request:** CreatePipeTransportRequest
 
 ```proto
 message CreatePipeTransportRequest {
@@ -181,9 +149,7 @@ message CreatePipeTransportRequest {
     string remoteIp = 2;
     string remoteMomoId = 3;
  }
- ```
-**Response:** CreatePipeTransportResponse
-```proto
+
 message CreatePipeTransportResponse {
    string roomId = 1;
    string localMomoId = 2;
@@ -194,9 +160,8 @@ message CreatePipeTransportResponse {
 }
 ```
 ## connectPipeTransport
-**Description:** Connects a pipe transport.
+ Connects a pipe transport.
 
-**Request:** ConnectPipeTransportRequest
 ```proto
 message ConnectPipeTransportRequest {
    string roomId = 1;
@@ -207,9 +172,7 @@ message ConnectPipeTransportRequest {
    ProtoSrtpParameters srtpParameters = 5;
    ProtoTransportTuple tuple = 6;
 }
-```
-**Response:** ConnectPipeTransportResponse
-```proto
+
 message ConnectPipeTransportResponse {
    string roomId = 1;
    string remoteMomoId = 2;
@@ -217,9 +180,8 @@ message ConnectPipeTransportResponse {
 }
 ```
 ## pipeConsumer
-**Description:** Pipes a consumer.
+ Pipes a consumer.
 
-**Request:** PipeConsumerRequest
 ```proto
 message PipeConsumeRequest {
    string roomId = 1;
@@ -227,9 +189,7 @@ message PipeConsumeRequest {
    string producerId = 3;
    string producerPeerId = 4;
 }
-```
-**Response:** PipeConsumeResponse
-```proto
+
 message PipeConsumeResponse {
    string roomId = 1;
    string producerPeerId = 2;
@@ -240,9 +200,7 @@ message PipeConsumeResponse {
 ```
 
 ## pipeProducer
-**Description:** Pipes a producer.
-
-**Request:** PipeProducerRequest
+ Pipes a producer.
 
 ```proto
 message PipeProduceRequest {
@@ -254,10 +212,7 @@ message PipeProduceRequest {
    ProtoRtpParameters rtpParameters = 6;
    string label = 7;
 }
-```
 
-**Response:** PipeProduceResponse
-```proto
 message PipeProduceResponse {
    string roomId = 1;
    string pipeProducerId = 2;
@@ -265,9 +220,7 @@ message PipeProduceResponse {
 }
 ```
 ## closeProducer
-**Description:** Closes a producer.
-
-**Request:** CloseProducerRequest
+ Closes a producer.
 
 ```proto
 message CloseProducerRequest {
@@ -277,26 +230,21 @@ message CloseProducerRequest {
    string momoId = 4;
    string kind = 5;
 }
-```
-**Response:** CloseProducerResponse
-```proto
+
 message CloseProducerResponse {
    string peerId = 1;
 }
 ```
 ## closeConsumer
-**Description:** Closes a consumer.
+ Closes a consumer.
 
-**Request:** CloseConsumerRequest
 ```proto
 message CloseConsumerRequest {
    string peerId = 1;
    string roomId =2;
    string consumerId = 3;
 }
-```
-**Response:** CloseConsumerResponse
-```proto
+
 message CloseConsumerResponse {
    string peerId = 1;
    string roomId = 2;
@@ -304,40 +252,32 @@ message CloseConsumerResponse {
 ```
 
 ## pauseProducer
-**Description:** Pauses a producer.
+ Pauses a producer.
 
-**Request:** PauseProducerRequest
 ```proto
 message PauseProducerRequest {
    string roomId = 1;
    string peerId = 2;
    string producerId = 3;
 }
-```
 
-**Response:** PauseProducerResponse
-```proto
 message PauseProducerResponse {}
 ```
 ## resumeProducer
-**Description:** Resumes a producer.
+ Resumes a producer.
 
-**Request:** ResumeProducerRequest
 ```proto
 message ResumeProducerRequest {
    string roomId = 1;
    string peerId = 2;
    string producerId = 3;
 }
-```
-**Response:** ResumeProducerResponse
-```proto
+
 message ResumeProducerResponse {}
 ```
 ## batchCloseProducers
-**Description:** Closes multiple producers.
+ Closes multiple producers.
 
-**Request:** BatchCloseProducersRequest
 ```proto
 message BatchCloseProducersRequest {
    message CloseProducerRecord {
@@ -348,33 +288,26 @@ message BatchCloseProducersRequest {
    repeated CloseProducerRecord repeatedCloseProducers = 1;
    string roomId = 2;
 }
-```
-**Response:** BatchCloseProducersResponse
-```proto
+
 message BatchCloseProducersResponse {
    string status = 1;
 }
 ```
 ## batchCloseConsumers
-**Description:** Closes multiple consumers.
+ Closes multiple consumers.
 
-**Request:** BatchCloseConsumersRequest
 ```proto
 message BatchCloseConsumersRequest {
    repeated string peerIds = 1;
    string roomId = 2;
 }
-```
-**Response:** BatchCloseConsumersResponse
-```proto
+
 message BatchCloseConsumersResponse {
    string status = 1;
 }
 ```
 ## restartTransportIce
-**Description:** Restarts ICE for a transport.
-
-**Request:** RestartTransportIceRequest
+ Restarts ICE for a transport.
 
 ```proto
 message RestartIceRequest {
@@ -383,9 +316,7 @@ message RestartIceRequest {
     string transportId = 3;
     string transportType = 4;
  }
- ```
-**Response:** RestartIceResponse
-```proto
+
 message RestartIceResponse {
    string peerId = 1;
    string transportType = 2;
@@ -394,68 +325,56 @@ message RestartIceResponse {
 ```
 
 ## closePeer
-**Description:** Closes a peer.
+ Closes a peer.
 
-**Request:** ClosePeerRequest
 ```proto
 message ClosePeerRequest {
    string peerId = 1;
    string roomId = 2;
 }
-```
-**Response:** ClosePeerResponse
-```proto
+
 message ClosePeerResponse {
    string peerId = 1;
    string roomId = 2;
 }
 ```
 ## closeRoom
-**Description:** Closes a room.
+ Closes a room.
 
-**Request:** CloseRoomRequest
 ```proto
 message CloseRoomRequest {
    string roomId = 1;
 }
-```
-**Response:** CloseRoomResponse
-```proto
+
 message CloseRoomResponse {
    string roomId = 1;
 }
 ```
 ## resumeConsumer
-**Description:** Resumes a consumer.
+ Resumes a consumer.
 
-**Request:** ResumeConsumerRequest
 ```proto
 message ResumeConsumerRequest {
    string peerId = 1;
    string roomId = 2;
    string consumerId = 3;
 }
-```
-**Response:** ResumeConsumerResponse
-```proto
+
 message ResumeConsumerResponse {
    string peerId = 1;
    string consumerId = 2;
 }
 ```
 ## createDataConsumer
-**Description:** Creates a data consumer.
+ Creates a data consumer.
 
-**Request:** CreateDataConsumerRequest
 ```proto
 message createDataConsumerRequest {
   string label = 1;
   string peerId = 2;
   string roomId = 3;
 }
-```
-**Response:** ConsumeDataResponse
-```proto
+
 message ConsumeDataResponse {
   string id = 1;
   string dataProducerId = 2;
