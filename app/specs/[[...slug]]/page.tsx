@@ -16,10 +16,16 @@ export default async function Page({
 
   const MDX = page.data.exports.default;
 
+  const toc = page.data.exports.toc;
+
   return (
     <DocsPage footer={{
       enabled: false,
-    }} toc={page.data.exports.toc} key='specs-root-page' lastUpdate={new Date().toLocaleString()} full = {false}>
+    }} key='specs-root-page' toc = {page.data.exports.toc} tableOfContent={{
+      enabled: true,
+    }} lastUpdate={new Date().toLocaleString()} tableOfContentPopover={{
+      enabled: false
+    }} full = {false}>
       <DocsBody>
         <h1>{page.data.title}</h1>
         <MDX />
