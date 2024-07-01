@@ -1,5 +1,4 @@
 import { getPage, getPages } from '@/app/source';
-import { DocsLayout } from 'fumadocs-ui/layout';
 import { DocsBody, DocsPage } from 'fumadocs-ui/page';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -17,10 +16,16 @@ export default async function Page({
 
   const MDX = page.data.exports.default;
 
+  const toc = page.data.exports.toc;
+
   return (
     <DocsPage footer={{
       enabled: false,
-    }} toc={page.data.exports.toc} full = {false}>
+    }} key='specs-root-page' toc = {page.data.exports.toc} tableOfContent={{
+      enabled: true,
+    }} lastUpdate={new Date().toLocaleString()} tableOfContentPopover={{
+      enabled: false
+    }} full = {false}>
       <DocsBody>
         <h1>{page.data.title}</h1>
         <MDX />
