@@ -1,0 +1,188 @@
+---
+title: Media Node RTC Specs
+description: Specifications for the Media Node RTC
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+The Media Node uses certain protocols to establish and manage WebRTC connections. This document outlines the specifications for the Media Node RTC.
+
+## SDP Info
+
+<Callout>
+    SDP Info is used to describe the transport parameters for a WebRTC connection.
+    For more information, see the <a href="https://tools.ietf.org/html/rfc4566">RFC 4566</a>.
+</Callout>
+
+```proto
+message ProtoDtlsFingerPrints {
+    string algorithm = 1;
+    string value = 2;
+}
+
+message ProtoIceParameters {
+    string usernameFragment = 1;
+    string password = 2;
+    bool iceLite = 3;
+}
+
+message ProtoIceCandidates {
+    string foundation = 1;
+    int32 priority = 2;
+    string ip = 3;
+    int32 port = 4;
+    string type = 5;
+    string protocol = 6;
+    string tcpType = 7;
+    string address = 8;
+}
+
+message ProtoDtlsParameters {
+    string role = 1;
+    repeated ProtoDtlsFingerPrints fingerprints = 2;
+}
+
+message ProtoSctpParameters {
+    int32 port = 1;
+    int32 OS = 2;
+    int32 MIS = 3;
+    int32 maxMessageSize = 4;
+}
+
+
+message ProtoTransportSDPInfo {
+    string id = 1;
+    repeated ProtoIceCandidates iceCandidates = 2;
+    ProtoIceParameters iceParameters = 3;
+    ProtoDtlsParameters dtlsParameters = 4;
+    ProtoSctpParameters sctpParameters = 5;
+}
+```
+
+## SCTP Prameters
+
+<Callout>
+    SCTP Parameters are used to describe the SCTP transport parameters for a WebRTC connection.
+    For more information, see the <a href="https://tools.ietf.org/html/rfc4960">RFC 4960</a>.
+</Callout>
+
+```proto
+message ProtoSctpStreamParameters {
+    int32 streamId = 1;
+    bool ordered = 2;
+    int32 maxPacketLifeTime = 3;
+    int32 maxRetransmits = 4;
+}
+
+message ProtoNumSctpStreams {
+    int32 OS = 1; // Initially requested number of outgoing SCTP streams
+    int32 MIS = 2; // Maximum number of incoming SCTP streams
+}
+
+message ProtoSctpCapabilities {
+    ProtoNumSctpStreams numStreams = 1;
+}
+```
+
+## RTP Parameters
+
+<Callout>
+    RTP Parameters are used to describe the RTP transport parameters for a WebRTC connection.
+    For more information, see the <a href="https://tools.ietf.org/html/rfc3550">RFC 3550</a>.
+</Callout>
+
+```proto
+message ProtoRtpCodecCapability {
+    message ProtoRtcpFeedback {
+        string type = 1;
+        string parameter = 2;
+    }
+
+    string kind = 1;
+    string mimeType = 2;
+    int32 preferredPayloadType = 3;
+    int32 clockRate = 4;
+    int32 channels = 5;
+    map<string, string> parameters = 6;
+    repeated ProtoRtcpFeedback rtcpFeedback = 7;
+}
+
+message ProtoRtpHeaderExtension {
+    string kind = 1;
+    string uri = 2;
+    int32 preferredId = 3;
+    bool preferredEncrypt = 4;
+    string direction = 5;
+}
+
+message ProtoRtpCapabilities {
+    repeated ProtoRtpCodecCapability codecs = 1;
+    repeated ProtoRtpHeaderExtension headerExtensions = 2;
+}
+
+message ProtoRtcpFeedback {
+    string type = 1;
+    string parameter = 2;
+}
+
+message ProtoCodecParameters {
+    string mimeType = 1;
+    int32 payloadType = 2;
+    int32 clockRate = 3;
+    int32 channels = 4;
+    map<string, string> parameters = 6;
+    repeated ProtoRtcpFeedback rtcpFeedback = 7;
+}
+
+message ProtoHeaderExtensionParameters {
+    string uri = 1;
+    int32 id = 2;
+    bool encrypt = 3;
+    map<string, string> parameters = 4;
+}
+
+message ProtoEncodings {
+    message ProtoRTX {
+        int64 ssrc = 1;
+    }
+
+    int64 ssrc = 1;
+    string rid = 2;
+    int32 codecPayloadType = 3;
+    ProtoRTX rtx = 4;
+    bool dtx = 5;
+    string scalabilityMode = 6;
+    int32 scaleResolutionDownBy = 7;
+    int32 maxBitrate = 8;
+    bool active = 9;
+    int32 maxFramerate= 10;
+}
+
+message RtcpParameters {
+    string cname = 1;
+    bool reducedSize = 2;
+    bool mux = 3;
+}
+
+message ProtoRtpParameters {
+    string mid = 1;
+    repeated ProtoCodecParameters codecs = 2;
+    repeated ProtoHeaderExtensionParameters headerExtensions = 3;
+    repeated ProtoEncodings encodings = 4;
+    RtcpParameters rtcp = 5;
+}
+
+message ProtoSrtpParameters {
+   string cryptoSuite = 1;
+   string keyBase64 = 2;
+}
+
+message ProtoTransportTuple {
+   string localIp = 1;
+   int32 localPort = 2;
+   string remoteIp = 3;
+   int32 remotePort = 4;
+   string protocol = 5;
+   string localAddress = 6;
+}
+```
