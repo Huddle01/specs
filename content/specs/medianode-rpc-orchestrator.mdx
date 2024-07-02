@@ -2,11 +2,13 @@
 title: MediaNode RPC Endpoints for Orchestrator
 ---
 
-The media node exposes several RPC endpoints to handle requests from the Orchestrator.
+import { Callout } from 'fumadocs-ui/components/callout';
+
+Orchestrator uses these set of RPC Calls which can be used to communicate with any Media Node.
 
 ## createRoom
 
-Creates a new room.
+Creates a New Room on the Media Node, Room is a logical grouping of media streams, where multiple clients can connect and share media streams.
 
 ```proto
 message CreateRoomRequest {
@@ -19,8 +21,14 @@ message CreateRoomResponse {
 ```
 
 ## joinRoom
- Joins an existing room.
 
+After creating a room, clients can join the room using this RPC call.
+Joining a room means that the client is ready to send and receive media streams.
+
+<Callout>
+This RPC call is used to join a room, and it also returns the RTP Capabilities of the client.
+Which must be passed onto the user agent to successfully join the room.
+</Callout>
 
 ```proto
 message JoinRoomRequest {
@@ -35,8 +43,12 @@ message JoinRoomResponse {
 }
 ```
 
+For more information on RTP Capabilities, refer to the [Media Node RTC Specs](/specs/rtc).
+
 ## createTransportOnServer
- Creates a transport on the server.
+
+Transport is a WebRTC connection between the client and the Media Node. Every Client requires to make a Transport to send and receive media streams.
+After creating a Transport on the Media Node, the client must use the SDP Info to create a Transport on the Client as well.
 
 ```proto
 message CreateTransportRequest {
@@ -52,8 +64,14 @@ message CreateTransportResponse {
 }
 ```
 
+For more information on SDP Info and SctpCapabilities, refer to the [Media Node RTC Specs](/specs/rtc).
+
 ## connectTransportOnServer
- Connects a transport on the server.
+
+When the client has created a Transport on the client-side, it must connect the Transport to the Media Node using this RPC call.
+
+Connecting the Transport means that the client is ready to send and receive media streams and both the media node and 
+the client have successfully exchanged ICE Candidates and have made a WebRTC Connection.
 
 ```proto
 message ConnectTransportRequest {
@@ -69,8 +87,16 @@ message ConnectTransportResponse {
 }
 ```
 
+For more information on DTLS Prameters, refer to the [Media Node RTC Specs](/specs/rtc).
+
+
 ## produce
- Produces media.
+
+Produces Media Stream ( Audio/Video ) onto the Media Node which can then be consumed by other clients connected to the same room.
+
+<Callout >
+   For more information what is produce and consume, refer to the [Media Node Terminology](/specs/terminology).
+</Callout>
 
 ```proto
 message ProduceRequest {
@@ -89,35 +115,16 @@ message ProduceResponse {
 }
 ```
 
-## produceData
- Produces data.
-
-```proto
-message ProduceDataRequest {
-   string peerId = 1;
-   string roomId = 2;
-   string label = 3;
-   string protocol = 4;
-   ProtoSctpStreamParameters sctpStreamParameters = 5;
-   string transportId = 6;
-   map<string, string> appData = 7;
-}
-
-message ProduceDataResponse {
-   string id = 1;
-   string dataProducerId = 2;
-   ProtoSctpStreamParameters sctpStreamParameters = 3;
-   string label = 4;
-   string protocol = 5;
-   map<string, string> appData = 6;
-   string peerId = 7;
-}
-```
+For more information on RTP Prameters, refer to the [Media Node RTC Specs](/specs/rtc).
 
 ## consume
- Consumes media.
 
-**Request:** ConsumeRequest
+Consumes media stream ( Audio/Video ) from the Media Node which is produced by other clients connected to the same room.
+
+<Callout >
+   For more information what is produce and consume, refer to the [Media Node Terminology](/specs/terminology).
+</Callout>
+
 ```proto
 message ConsumeRequest {
    string peerId = 1;
@@ -139,9 +146,95 @@ message ConsumeResponse {
 }
 ```
 
-## createPipeTransport
- Creates a pipe transport.
+## closeProducer
 
+Closes a producer on the Media Node which cleans up the resources used by the producer.
+
+<Callout>
+   Whenever the client is done producing media streams, it must close the producer to free up resources.
+</Callout>
+
+```proto
+message CloseProducerRequest {
+   string peerId = 1;
+   string roomId = 2;
+   string producerId = 3;
+   string momoId = 4;
+   string kind = 5;
+}
+
+message CloseProducerResponse {
+   string peerId = 1;
+}
+```
+
+## closeConsumer
+
+Closes a consumer on the Media Node which cleans up the resources used by the consumer.
+
+<Callout>
+   Whenever the client is done consuming media streams, it must close the consumer to free up resources.
+   when a producer is closed, all the consumers associated with that producer are also closed automatically.
+</Callout>
+
+```proto
+message CloseConsumerRequest {
+   string peerId = 1;
+   string roomId =2;
+   string consumerId = 3;
+}
+
+message CloseConsumerResponse {
+   string peerId = 1;
+   string roomId = 2;
+}
+```
+
+## pauseProducer
+
+Pauses a producer on the Media Node which stops the producer from sending media streams to its consumers.
+
+<Callout>
+   For more information on how media stream move between producers and consumers, refer to the [Media Node Architecture](/specs/architecture).
+</Callout>
+
+```proto
+message PauseProducerRequest {
+   string roomId = 1;
+   string peerId = 2;
+   string producerId = 3;
+}
+
+message PauseProducerResponse {}
+```
+
+## resumeProducer
+
+Resumes a producer on the Media Node which starts the producer from sending media streams to its consumers.
+
+<Callout>
+   For more information on how media stream move between producers and consumers, refer to the [Media Node Architecture](/specs/architecture).
+</Callout>
+
+```proto
+message ResumeProducerRequest {
+   string roomId = 1;
+   string peerId = 2;
+   string producerId = 3;
+}
+
+message ResumeProducerResponse {}
+```
+
+For more information on RTP Prameters, refer to the [Media Node RTC Specs](/specs/rtc).
+
+## createPipeTransport
+
+Creates a pipe transport for media streaming, this is used to create a direct connection between two media nodes.
+
+<Callout>
+   For more information about how to use pipeTransport, refer to the [Media Node Architecture](/specs/architecture).
+</Callout>
 
 ```proto
 message CreatePipeTransportRequest {
@@ -159,8 +252,16 @@ message CreatePipeTransportResponse {
    ProtoTransportTuple tuple = 6;
 }
 ```
+
+For more information on SRTP Prameters, refer to the [Media Node RTC Specs](/specs/rtc).
+
 ## connectPipeTransport
- Connects a pipe transport.
+
+Connects an existing pipe transport between two media nodes using this RPC call.
+
+<Callout>
+   For more information about how to use pipeTransport, refer to the [Media Node Architecture](/specs/architecture).
+</Callout>
 
 ```proto
 message ConnectPipeTransportRequest {
@@ -179,28 +280,18 @@ message ConnectPipeTransportResponse {
    string remoteMomoIp = 3;
 }
 ```
-## pipeConsumer
- Pipes a consumer.
 
-```proto
-message PipeConsumeRequest {
-   string roomId = 1;
-   string remoteMomoId = 2;
-   string producerId = 3;
-   string producerPeerId = 4;
-}
-
-message PipeConsumeResponse {
-   string roomId = 1;
-   string producerPeerId = 2;
-   ProtoRtpParameters rtpParameters = 3;
-   string label = 4;
-   string kind = 5;
-}
-```
+For more information on SRTP Prameters, refer to the [Media Node RTC Specs](/specs/rtc).
 
 ## pipeProducer
- Pipes a producer.
+
+When a producer is created on one media node. It must be piped to another media node using this RPC call.
+
+If the producer media node has a pipe transport with the remote media node, then the producer can be piped to the remote media node.
+
+<Callout>
+   For more information about how piping works, refer to the [Media Node Cascading](/specs/architecture).
+</Callout>
 
 ```proto
 message PipeProduceRequest {
@@ -219,64 +310,40 @@ message PipeProduceResponse {
    bool status = 3;
 }
 ```
-## closeProducer
- Closes a producer.
+
+For more information on RTP Prameters, refer to the [Media Node RTC Specs](/specs/rtc).
+
+## pipeConsumer
+
+When a producer is created on one media node, its must be consumed on another media node using this RPC call.
+
+If the producer media node is piping the media stream over the pipeTransport to the remote media node, 
+then the consumer can be created on the remote media node.
+
+<Callout>
+   For more information about how piping works, refer to the [Media Node Cascading](/specs/architecture).
+</Callout>
 
 ```proto
-message CloseProducerRequest {
-   string peerId = 1;
-   string roomId = 2;
+message PipeConsumeRequest {
+   string roomId = 1;
+   string remoteMomoId = 2;
    string producerId = 3;
-   string momoId = 4;
+   string producerPeerId = 4;
+}
+
+message PipeConsumeResponse {
+   string roomId = 1;
+   string producerPeerId = 2;
+   ProtoRtpParameters rtpParameters = 3;
+   string label = 4;
    string kind = 5;
 }
-
-message CloseProducerResponse {
-   string peerId = 1;
-}
-```
-## closeConsumer
- Closes a consumer.
-
-```proto
-message CloseConsumerRequest {
-   string peerId = 1;
-   string roomId =2;
-   string consumerId = 3;
-}
-
-message CloseConsumerResponse {
-   string peerId = 1;
-   string roomId = 2;
-}
 ```
 
-## pauseProducer
- Pauses a producer.
-
-```proto
-message PauseProducerRequest {
-   string roomId = 1;
-   string peerId = 2;
-   string producerId = 3;
-}
-
-message PauseProducerResponse {}
-```
-## resumeProducer
- Resumes a producer.
-
-```proto
-message ResumeProducerRequest {
-   string roomId = 1;
-   string peerId = 2;
-   string producerId = 3;
-}
-
-message ResumeProducerResponse {}
-```
 ## batchCloseProducers
- Closes multiple producers.
+
+Closes multiple producers on the Media Node which cleans up the resources used by the producers.
 
 ```proto
 message BatchCloseProducersRequest {
@@ -293,8 +360,10 @@ message BatchCloseProducersResponse {
    string status = 1;
 }
 ```
+
 ## batchCloseConsumers
- Closes multiple consumers.
+
+Closes multiple consumers on the Media Node which cleans up the resources used by the consumers.
 
 ```proto
 message BatchCloseConsumersRequest {
@@ -306,8 +375,15 @@ message BatchCloseConsumersResponse {
    string status = 1;
 }
 ```
+
 ## restartTransportIce
- Restarts ICE for a transport.
+
+Restarts the ICE connection of a transport, As WebRTC connections can break due to network issues, 
+this RPC call can be used to restart the ICE connection and re-establish the WebRTC connection.
+
+<Callout title = 'How to use these RPC Calls' >
+   For more information on how to use these RPC calls, refer to the [Media Node RPC Client](/clients/medianode-rpc-client).
+</Callout>
 
 ```proto
 message RestartIceRequest {
@@ -325,7 +401,13 @@ message RestartIceResponse {
 ```
 
 ## closePeer
- Closes a peer.
+
+Closes a peer on the Media Node which cleans up all the resources used by the peer.
+
+<Callout>
+   Whenever the client is done with the media session, it must close the peer to free up resources.
+   Every producer and consumer associated with the peer are also closed automatically.
+</Callout>
 
 ```proto
 message ClosePeerRequest {
@@ -338,8 +420,10 @@ message ClosePeerResponse {
    string roomId = 2;
 }
 ```
+
 ## closeRoom
- Closes a room.
+
+Closes a room on the Media Node which cleans up all the resources used by the room.
 
 ```proto
 message CloseRoomRequest {
@@ -350,38 +434,7 @@ message CloseRoomResponse {
    string roomId = 1;
 }
 ```
-## resumeConsumer
- Resumes a consumer.
 
-```proto
-message ResumeConsumerRequest {
-   string peerId = 1;
-   string roomId = 2;
-   string consumerId = 3;
-}
-
-message ResumeConsumerResponse {
-   string peerId = 1;
-   string consumerId = 2;
-}
-```
-## createDataConsumer
- Creates a data consumer.
-
-```proto
-message createDataConsumerRequest {
-  string label = 1;
-  string peerId = 2;
-  string roomId = 3;
-}
-
-message ConsumeDataResponse {
-  string id = 1;
-  string dataProducerId = 2;
-  ProtoSctpStreamParameters sctpStreamParameters = 3;
-  string label = 4;
-  string protocol = 5;
-  map<string, string> appData = 6;
-  string peerId = 7;
-}
-```
+<Callout title = 'How to use these RPC Calls' >
+   For more information on how to use these RPC calls, refer to the [Media Node RPC Client](/clients/medianode-rpc-client).
+</Callout>

@@ -6,8 +6,7 @@ The media node exposes several RPC endpoints to handle requests from the registr
 
 ## pingMomo
 
- Responds to ping requests from the discovery service.
-
+Responds to ping requests from the discovery service.
 
 ```proto
 message PingRequest {}
@@ -19,8 +18,7 @@ message Pong {
 
 ## getMomoStatus
 
- Provides the status of the media node, including uptime and connection stats.
-
+Provides the status of the media node, including uptime and connection stats.
 
 ```proto
 message GetMomoStatusRequest {}
@@ -55,9 +53,10 @@ message MomoStatus{
 }
 ```
 
-
 ## createPipeTransport
- Creates a pipe transport for media streaming.
+
+Creates a pipe transport for media streaming.
+
 ```proto
 message CreatePipeTransportRequest {
     string roomId = 1;
@@ -76,7 +75,9 @@ message CreatePipeTransportRequest {
 ```
 
 ## connectPipeTransport
- Connects an existing pipe transport.
+
+Connects an existing pipe transport.
+
 ```proto
  message ConnectPipeTransportRequest {
     string roomId = 1;
@@ -96,7 +97,9 @@ message CreatePipeTransportRequest {
 ```
 
 ## sendChallenge
- Handles incoming challenge requests.
+
+Handles incoming challenge requests.
+
 ```proto
 message SendChallengeRequest {
   string challengerMomoId = 1;
@@ -110,7 +113,9 @@ message SendChallengeResponse {
 ```
 
 ## monitorChallenge
- Monitors an ongoing challenge.
+
+Monitors an ongoing challenge.
+
 ```proto
 message MonitorChallengeRequest {
   PipeProduceRequest produceRequest = 1;
@@ -125,7 +130,9 @@ message MonitorChallengeResponse {
 ```
 
 ## stopChallenge
- Stops an ongoing challenge.
+
+Stops an ongoing challenge.
+
 ```proto
 message StopChallengeRequest {
   string challengerMomoId = 1;
