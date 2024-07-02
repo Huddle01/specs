@@ -7,11 +7,19 @@ description: Your first document
 
 Media Nodes serve as the powerhouse of the dRTC Network, providing essential bandwidth and computational resources. They play a crucial role in addressing the network's most challenging demands, notably in facilitating efficient audio and video services for users. These nodes are entrusted with the processing of incoming media streams and are adept at tasks such as dynamically adjusting video quality to align with the current bandwidth availability. This ensures an uninterrupted and high-quality user experience. By leveraging sophisticated algorithms like Simulcast, Temporal Scalability. Media Nodes optimize media transmission in real time. The robustness of Media Nodes make them the linchpin in the dRTC Network's commitment to seamless, high quality communication.
 
-How do Media Nodes work ?
+## Components of Media Node:
 
 Networking Layer: Media Nodes establish their connection to the broader network through RPCs (Remote Procedure Calls). This channel allow the nodes to facilitate client connections and remain informed about the global network states.
 
 Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations.
+
+## LifeCycle of MediaNode :
+
+1. Configuration: Media Nodes are configured with the necessary information to connect to the Registry Network. This includes whitelisting the MediaNode with a MediaNode NFT Key, which is used to authenticate the node's identity.Followed by SelfChecks which includes checking for static ip address, checking for the required ports to be open, checking if minimum bandwidth requirement fulfilment then ready for registration.
+
+2. Registration: Media Nodes register with the Registry Network to be included in the network. This process involves the exchange of information about the node's capabilities and resources.
+
+3. Ready for Connections: Once registered, the Media Node is ready to accept client connections. The node can now process incoming media streams and facilitate communication between clients.
 
 
 <Cards>
