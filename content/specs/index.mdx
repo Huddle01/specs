@@ -1,11 +1,18 @@
 ---
-title: Hello World
+title: Media Node
 description: Your first document
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+# Introduction
 
-## What is Next?
+Media Nodes serve as the powerhouse of the dRTC Network, providing essential bandwidth and computational resources. They play a crucial role in addressing the network's most challenging demands, notably in facilitating efficient audio and video services for users. These nodes are entrusted with the processing of incoming media streams and are adept at tasks such as dynamically adjusting video quality to align with the current bandwidth availability. This ensures an uninterrupted and high-quality user experience. By leveraging sophisticated algorithms like Simulcast, Temporal Scalability. Media Nodes optimize media transmission in real time. The robustness of Media Nodes make them the linchpin in the dRTC Network's commitment to seamless, high quality communication.
+
+How do Media Nodes work ?
+
+Networking Layer: Media Nodes establish their connection to the broader network through RPCs (Remote Procedure Calls). This channel allow the nodes to facilitate client connections and remain informed about the global network states.
+
+Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations.
+
 
 <Cards>
   <Card title="Learn more about RTC" href="/specs/rtc" />
