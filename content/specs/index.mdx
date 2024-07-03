@@ -3,24 +3,42 @@ title: "Introduction"
 description: Introduction to the Huddle01 dRTC network
 ---
 
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
 Huddle01 is building a distributed people powered real-time communication network with blockchain mechanisms to enable real-time communication at scale
 where users can monetize their resources by providing services to the network. This network is termed as `dRTC (distributed Real-Time Communication)`.
-This network contains three types of systems - Orchestrator, Media Nodes and Registry which interact with each other based on a set of 
+This network contains three types of systems - `Media Nodes`, `Orchestrator` and `Registry` which interact with each other based on a set of 
 protocols and standards to fulfill the requirements of the network.
 
 ## dRTC Network
 The network is a collection of interacting systems based on a set of protocols and standards. The network is invisioned to be a fully decentralized
 and distributed network where users can monetize their resources by providing different services to the network.
 
-The network currently consists of three types of systems - Orchestrators, Media Nodes and Registry.
+The network currently consists of three types of systems - Media Nodes, Orchestrator and Registry.
 
-### 1.1 Orchestrator Nodes
+### 1.1 Media Nodes
+These are the Nodes which are responsible for processing and managing media streams (audio/video). They are at the core of the network.
+Media nodes are responsible for encoding, decoding, mixing, and routing media streams in the network. They provide the most important
+resources such as CPU, and bandwidth to the network.
+
+<Cards className='w-full' >
+  <Card
+    title="Understanding Media Nodes"
+    href="/specs/systems/media-node"
+    description="Learn about the role of Media Nodes in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="Specifications of Media Nodes"
+    href="/specs/specifications/media-node/specifications"
+    description="Learn about the specifications of Media Nodes in the dRTC network."
+    className='w-full'
+  />
+</Cards>
+
+### 1.2 Orchestrator
 Orchestrators select the best media servers and coordinates their interaction. It also maintains websocket connections 
 with clients for WebRTC signaling and messaging.
 
-### 1.2 Media Nodes
-is an abstraction of WebRTC SFU (Selective Forwarding Unit) which processes and manages media streams, 
-ensuring media communication between clients
-
-### 1.3 Registry Nodes
+### 1.3 Registry
 keeps track of all the media nodes which are available for use , monitors health and reports back on any abnormalities
