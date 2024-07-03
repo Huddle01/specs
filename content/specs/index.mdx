@@ -4,6 +4,7 @@ description: Introduction to the Huddle01 dRTC network
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card';
+import { FastForward, Cpu } from 'lucide-react';
 
 Huddle01 is building a distributed people powered real-time communication network with blockchain mechanisms to enable real-time communication at scale
 where users can monetize their resources by providing services to the network. This network is termed as `dRTC (distributed Real-Time Communication)`.
@@ -25,11 +26,13 @@ resources such as CPU, and bandwidth to the network.
   <Card
     title="Understanding Media Nodes"
     href="/specs/systems/media-node"
+    icon={<FastForward />}
     description="Learn about the role of Media Nodes in the dRTC network."
     className='w-full'
   />
   <Card
     title="Specifications of Media Nodes"
+    icon={<Cpu />}
     href="/specs/specifications/media-node/specifications"
     description="Learn about the specifications of Media Nodes in the dRTC network."
     className='w-full'
