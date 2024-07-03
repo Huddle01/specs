@@ -38,17 +38,67 @@ resources such as CPU, and bandwidth to the network.
 
 ### `1.2 Orchestrator`
 Orchestrator is the system in the network which works as a central hub for managing different media nodes and their resources. Network exposes
-a set of protocols and standards which can be used by the Orchestrator to use the resources of the media nodes. The Orchestrator is invisioned to
-be totally custom built by different organizations based on their requirements. 
-
-Orchestrator holds the logic to manage different work being done by the media nodes and any custom logic which is required to be implemented
-as per the requirements of different organizations.
+a set of protocols and standards which can be used by the Orchestrator to use the resources of the media nodes. Orchestrator holds the logic to manage different work being done by the media nodes and any custom logic which is required to be implemented
+as per the requirements of different organizations. 
 
 <Callout title="More about Orchestrator" type="info">
-  Learn about the role of Orchestrator in the dRTC network.
+  Learn about the specifications of Orchestrator copmatible with the dRTC network.
   [Read More](/specs/systems/media-node)
 </Callout>
 
+We invision people building different orchestrators based on their requirements and many different open orchestrators being available for the network.
 
 ### `1.3 Registry`
-keeps track of all the media nodes which are available for use , monitors health and reports back on any abnormalities
+Its a system in the network which holds all the information about the media nodes such as QoS (Quality of Service), Latency, Bandwidth, CPU, etc.
+It acts central registry for the network which can be used by the orchestrators or any other third party systems to get information about the media nodes
+and any other information about the network. Registry right now is built on top of `Libp2p` and uses gossipsub to communicate with the network.
+
+<Cards className='w-full' >
+  <Card
+    title="Understanding Registry"
+    href="/specs/systems/media-node"
+    icon={<FastForward />}
+    description="Learn about the role of Registry in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="Specifications of Registry"
+    icon={<Cpu />}
+    href="/specs/specifications/media-node/specifications"
+    description="Learn about the specifications of Registry in the dRTC network."
+    className='w-full'
+  />
+</Cards>
+
+## Where to go next?
+<Cards className='w-full' >
+  <Card
+    title="System Architecture"
+    href="/specs/systems/media-node"
+    icon={<FastForward />}
+    description="Learn about the role of Registry in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="Understanding Media Nodes"
+    icon={<Cpu />}
+    href="/specs/specifications/media-node/specifications"
+    description="Learn about the of Media Nodes in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="How Registry works?"
+    icon={<Cpu />}
+    href="/specs/specifications/media-node/specifications"
+    description="How Registry becomes the central storage for the network."
+    className='w-full'
+  />
+  <Card
+    title="Using and making Orchestrator"
+    icon={<Cpu />}
+    href="/specs/specifications/media-node/specifications"
+    description="Understand how to use and make Orchestrator for the dRTC network."
+    className='w-full'
+  />
+</Cards>
+
