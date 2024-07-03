@@ -1,34 +1,6 @@
 ---
-title: Introduction
+title: Introduction to the Huddle01 Protocol
 description: Your first document
 ---
 
-# Introduction
-
-Media Nodes serve as the powerhouse of the dRTC Network, providing essential bandwidth and computational resources. They play a crucial role in addressing the network's most challenging demands, notably in facilitating efficient audio and video services for users. These nodes are entrusted with the processing of incoming media streams and are adept at tasks such as dynamically adjusting video quality to align with the current bandwidth availability. This ensures an uninterrupted and high-quality user experience. By leveraging sophisticated algorithms like Simulcast, Temporal Scalability. Media Nodes optimize media transmission in real time. The robustness of Media Nodes make them the linchpin in the dRTC Network's commitment to seamless, high quality communication.
-
-## Components of Media Node:
-
-RPC Layer: Media Nodes communicate with the Orchestrator and Registry Networks through Remote Procedure Calls (RPC). This layer is responsible for handling requests from Orchestrators and Registry Networks, and for responding with the necessary information.
-
-API Layer: is reponsible for responding with health checks, status checks,usage metrics, and other information about the node's current state. This layer is crucial for Orchestrators to make informed decisions about the node's capabilities and resources.
-
-Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations.
-
-EVM Wallet Layer: Media Nodes are incentivized to provide their services through the dRTC Network's token economy. This layer manages the node's wallet, ensuring that the node is compensated for its services. Wallet is also crucial for authentication and identity verification of a Media Node.
-
-## LifeCycle of MediaNode :
-
-1. Configuration: Media Nodes are configured with the necessary information to connect to the Registry Network. This includes whitelisting the MediaNode with a MediaNode NFT Key, which is used to authenticate the node's identity.Followed by SelfChecks which includes checking for static ip address, checking for the required ports to be open, checking if minimum bandwidth requirement fulfilment then ready for registration.
-
-2. Registration: Media Nodes register with the Registry Network to be included in the network. This process involves the exchange of information about the node's capabilities and resources.
-
-3. Ready for Connections: Once registered, the Media Node is ready to accept client connections. The node can now process incoming media streams and facilitate communication between clients.
-
-
-<Cards>
-  <Card title="Learn more about RTC" href="/specs/rtc" />
-  <Card title="Learn more about Orchestrator" href="/specs/medianode-rpc-orchestrator" />
-  <Card title="Learn more about Registry" href="/specs/medianode-rpc-registry" />
-</Cards>
 page
