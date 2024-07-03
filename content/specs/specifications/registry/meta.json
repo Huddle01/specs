@@ -1,8 +1,5 @@
 {
-    "title": "Registry",
-    "root": false,
-    "pages": [
-      "..."
-    ]
-  }
-  
+  "title": "Registry",
+  "root": false,
+  "pages": ["..."]
+}
