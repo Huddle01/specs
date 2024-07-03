@@ -12,13 +12,13 @@ export const baseOptions: BaseLayoutProps = {
       <>
         <Image
           alt="huddle01"
-          src='/logo.png'
+          src="/logo.png"
           width={100}
           height={100}
           className="w-full flex-auto align-center"
         />
       </>
-    )
+    ),
   },
 };
 

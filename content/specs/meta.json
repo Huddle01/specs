@@ -1,16 +1,15 @@
 {
-    "title":"Specs",
-    "root": true,
-    "pages": [
-      "index",
-      "spec-status",
-      "architecture",
-      "---Systems---",
-      "...systems",
-      "---Specifications---",
-      "...specifications",
-      "---Glossary---",
-      "...glossary"
-    ]
-  }
-  
+  "title": "Specs",
+  "root": true,
+  "pages": [
+    "index",
+    "spec-status",
+    "architecture",
+    "---Systems---",
+    "...systems",
+    "---Specifications---",
+    "...specifications",
+    "---Glossary---",
+    "...glossary"
+  ]
+}

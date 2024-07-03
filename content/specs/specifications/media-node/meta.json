@@ -1,8 +1,5 @@
 {
-    "title": "Media Node",
-    "root": false,
-    "pages": [
-      "..."
-    ]
-  }
-  
+  "title": "Media Node",
+  "root": false,
+  "pages": ["..."]
+}
