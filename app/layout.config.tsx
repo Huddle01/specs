@@ -12,14 +12,16 @@ export const baseOptions: BaseLayoutProps = {
     title: (
         <>
           <Image
-            alt="Fumadocs"
-            src={Logo}
+            alt="huddle01"
+            src="/logo.png"
             sizes="100px"
-            className="hidden w-20 md:w-24 [.uwu_&]:block"
-            aria-label="Fumadocs"
+            width={30}
+            height={30}
+            className=""
+            aria-label="huddle01"
           />
-          <span className="font-medium [.uwu_&]:hidden max-md:[header_&]:hidden">
-            Fumadocs
+          <span>
+            Huddle01
           </span>
         </>
     )
