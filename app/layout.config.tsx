@@ -1,7 +1,6 @@
 import { pageTree } from '@/app/source';
 import type { BaseLayoutProps, DocsLayoutProps } from 'fumadocs-ui/layout';
 import Image from 'next/image';
-import Logo from '@/public/logo.png';
 
 // shared configuration
 export const baseOptions: BaseLayoutProps = {
@@ -10,20 +9,15 @@ export const baseOptions: BaseLayoutProps = {
     enableSearch: true,
     url: '/specs',
     title: (
-        <>
-          <Image
-            alt="huddle01"
-            src="/logo.png"
-            sizes="100px"
-            width={30}
-            height={30}
-            className=""
-            aria-label="huddle01"
-          />
-          <span>
-            Huddle01
-          </span>
-        </>
+      <>
+        <Image
+          alt="huddle01"
+          src='/logo.png'
+          width={100}
+          height={100}
+          className="w-full flex-auto align-center"
+        />
+      </>
     )
   },
 };
