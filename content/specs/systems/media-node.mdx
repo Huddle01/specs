@@ -5,7 +5,7 @@ description: Your first document
 
 # Introduction
 
-Media Nodes serve as the backbone of the dRTC Network, providing essential bandwidth and computational resources. They are responsible for processing media data within the network and facilitating media communication between clients. Media Nodes are incentivized to provide their services through the dRTC Network's token economy, ensuring that the network remains robust and reliable.
+Media Nodes serve as the backbone of the dRTC Network, providing essential bandwidth and computational resources. Its responsibility is to establish WebRTC connections with the clients in the room . Media Nodes are responsible for processing media data, such as audio and video streams, and facilitating communication between clients. Media Nodes are incentivized to provide their services through the dRTC Network's token economy.
 
 ## Components of Media Node:
 
@@ -13,7 +13,7 @@ RPC Layer: Media Nodes communicate with the Orchestrator and Registry Networks t
 
 API Layer: is reponsible for responding with health checks, status checks,usage metrics, and other information about the node's current state. This layer is crucial for Orchestrators to make informed decisions about the node's capabilities and resources.
 
-Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations.
+Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations. This Layer is an abstraction over the WebRTC SFU implementation used by the Media Node.
 
 EVM Wallet Layer: Media Nodes are incentivized to provide their services through the dRTC Network's token economy. This layer manages the node's wallet, ensuring that the node is compensated for its services. Wallet is also crucial for authentication and identity verification of a Media Node.
 
