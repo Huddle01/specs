@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Media Node
 description: Your first document
 ---
 
@@ -9,13 +9,9 @@ Media Nodes serve as the powerhouse of the dRTC Network, providing essential ban
 
 ## Components of Media Node:
 
-RPC Layer: Media Nodes communicate with the Orchestrator and Registry Networks through Remote Procedure Calls (RPC). This layer is responsible for handling requests from Orchestrators and Registry Networks, and for responding with the necessary information.
-
-API Layer: is reponsible for responding with health checks, status checks,usage metrics, and other information about the node's current state. This layer is crucial for Orchestrators to make informed decisions about the node's capabilities and resources.
+Networking Layer: Media Nodes establish their connection to the broader network through RPCs (Remote Procedure Calls). This channel allow the nodes to facilitate client connections and remain informed about the global network states.
 
 Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations.
-
-EVM Wallet Layer: Media Nodes are incentivized to provide their services through the dRTC Network's token economy. This layer manages the node's wallet, ensuring that the node is compensated for its services. Wallet is also crucial for authentication and identity verification of a Media Node.
 
 ## LifeCycle of MediaNode :
 
@@ -31,4 +27,3 @@ EVM Wallet Layer: Media Nodes are incentivized to provide their services through
   <Card title="Learn more about Orchestrator" href="/specs/medianode-rpc-orchestrator" />
   <Card title="Learn more about Registry" href="/specs/medianode-rpc-registry" />
 </Cards>
-page

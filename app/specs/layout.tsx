@@ -6,9 +6,8 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DocsLayout
       sidebar={{
-        enabled: false,
-        collapsible: false,
-        component: null,
+        enabled: true,
+        collapsible: true,
       }}
       {...docsOptions}
     >
