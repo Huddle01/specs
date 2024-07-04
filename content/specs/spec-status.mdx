@@ -2,3 +2,26 @@
 title: Spec Status
 description: Your first document
 ---
+
+import { SpecLegend } from '@/components/spec-status/specLegend'
+import { Implementations } from '@/components/spec-status/implementations'
+import { SpecStatus } from '@/components/spec-status/specStatus'
+
+Each section of the spec must be stable and audited before it is considered done. The state of each section is tracked below.
+
+- The **State** column indicates the stability as defined in the legend.
+- The **Theory Audit** column shows the date of the last theory audit with a link to the report.
+
+### Spec Status Legend
+
+<SpecLegend />
+
+### Spec Status Overview
+
+<SpecStatus />
+
+### Implementations Status
+
+Known implementations of the Huddle01 Spec are tracked below, with their current CI build status and a link to their last security audit report where one exists.
+
+<Implementations />
