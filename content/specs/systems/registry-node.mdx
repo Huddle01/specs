@@ -3,4 +3,23 @@ title: Registry
 description: Registry Node is the entry point for the dRTC Network. It is responsible for managing the network's nodes and facilitating communication between them.
 ---
 
-# Introduction
+The Registry Node is the entry point for the dRTC Network. It is responsible for managing the network's nodes and facilitating communication between them. The Registry Node is responsible for handling the onboarding and offboarding of media nodes, updating the status of the media nodes, and providing the demand side with the ability to query the network for available media nodes.
+
+`The utility provided by the registry nodes is to provide a way to manage and query the network of media nodes in a scalable and reliable way.`
+
+## Architecture
+
+The Registry Node is composed of different components that work together to provide the interface required to manage the network's nodes.
+The modules are divided as follows:
+
+1. **RPC Module**: is reponsible for handling requests from the media nodes like joining the network, leaving the network, and updating the status of the media nodes.
+
+2. **API Module**:  is responsible for handling queries from the demand side of the network like getting the list of available media nodes from a geographical region, getting the status of a media node, etc.
+
+3. **QoS Module**: is repsonsible for orchestrating the Quality of Service (QoS) tests between media nodes, then uploading the results onto the blockchain to calculate the reputation of the media nodes.
+
+4. **Libp2p Module**: is responsible for bootstrapping new registry nodes to the network , gossip between the registry nodes to keep the network updated with the latest information regarding the list of media nodes.
+
+5. **DataStore Module**: is responsible for storing the information about the media nodes in the network. This information includes the IP address, port, and status of the media nodes. Data is stored using Conflict Free Replicated Data Types (CRDTs) to ensure consistency across the network.
+
+5. **Incentive Module**: This module is responsible for triggering the incentives for the media nodes depending on their reputation and the demand for their resources.
