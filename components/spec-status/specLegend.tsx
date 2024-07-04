@@ -1,5 +1,22 @@
 import React from 'react';
 
+type TStatus =
+  | 'Stable'
+  | 'Reliable'
+  | 'Draft/WIP'
+  | 'Incorrect'
+  | 'Missing'
+  | '';
+
+const StatusToBgColor: Record<TStatus, string> = {
+  Stable: 'bg-green-500',
+  Reliable: 'bg-blue-500',
+  'Draft/WIP': 'bg-yellow-500',
+  Incorrect: 'bg-red-500',
+  Missing: 'bg-gray-500',
+  '': '',
+};
+
 const SpecLegend = () => {
   const rows = [
     {
@@ -55,4 +72,4 @@ const SpecLegend = () => {
   );
 };
 
-export { SpecLegend };
+export { SpecLegend, StatusToBgColor, type TStatus };

@@ -1,39 +1,56 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is included
 
-const data = [
+type TRowData = {
+  repo: string;
+  link: string;
+  language: string;
+  ci: TCiStatus;
+  // testCoverage: string;
+  securityAudit: TSecurityAuditStatus;
+  securityAuditURL: string;
+};
+
+type TCiStatus = 'Passed' | 'Failed';
+type TSecurityAuditStatus = 'Reports' | 'Missing';
+
+const CiStatusToBgColor = {
+  Passed: 'bg-green-500',
+  Failed: 'bg-red-500',
+};
+
+const SecurityAuditStatusToBgColor = {
+  Reports: 'bg-blue-500',
+  Missing: 'bg-gray-500',
+};
+
+const data: TRowData[] = [
   {
     repo: 'momo',
     link: 'https://github.com/huddle01/shinigami',
     language: 'C++ , Typescript',
     ci: 'Passed',
-    ciClass: 'bg-green-500',
     // testCoverage: '40%',
     securityAudit: 'Missing',
     securityAuditURL: '#',
-    securityAuditClass: 'bg-gray-500',
   },
   {
     repo: 'registry',
     link: 'https://github.com/huddle01/shinigami',
     language: 'Go',
     ci: 'Passed',
-    ciClass: 'bg-green-500',
     // testCoverage: '58%',
     securityAudit: 'Missing',
     securityAuditURL: '#',
-    securityAuditClass: 'bg-gray-500',
   },
   {
     repo: 'sushi',
     link: 'https://github.com/huddle01/shinigami',
     language: 'C++ , Typescript',
     ci: 'Passed',
-    ciClass: 'bg-green-500',
     // testCoverage: '69%',
     securityAudit: 'Missing',
     securityAuditURL: '#',
-    securityAuditClass: 'bg-gray-500',
   },
 ];
 
@@ -68,13 +85,13 @@ const Implementations = () => {
               </td>
               <td className="px-6 py-4 whitespace-nowrap">{row.language}</td>
               <td
-                className={`px-6 py-4 whitespace-nowrap text-black ${row.ciClass}`}
+                className={`px-6 py-4 whitespace-nowrap text-black ${CiStatusToBgColor[row.ci]}`}
               >
                 {row.ci}
               </td>
               {/* <td className="px-6 py-4 whitespace-nowrap">{row.testCoverage}</td> */}
               <td
-                className={`px-6 py-4 whitespace-nowrap text-black ${row.securityAuditClass}`}
+                className={`px-6 py-4 whitespace-nowrap text-black ${SecurityAuditStatusToBgColor[row.securityAudit]}`}
               >
                 {row.securityAudit === 'Reports' ? (
                   <a href={row.securityAuditURL} className="text-blue-500">
