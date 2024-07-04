@@ -1,6 +1,6 @@
 ---
 title: Media Node
-description: Your first document
+description: These nodes are responsible for processing and managing media streams (audio/video).
 ---
 
 These are the Nodes which are responsible for processing and managing media streams (audio/video). They are at the core of the network.
@@ -29,3 +29,8 @@ The lifecycle of the Media Node is very simple, It can be broken down into simpl
 2. **Registery**: Media Node advertises itself to the Registry Network with the capabilities it can provide.
 3. **Orchestration**: Media Node waits for the instructions from the Orchestrator Network.
 4. **Quality of Service**: This Module is always running in the background to ensure Media Nodes are providing the resources as per the capabilities they have advertised.
+
+## Components
+
+### Media Engine
+Every dRTC Media Node uses several different protocols of communication to interact with different systems in the network such as WebRTC, RTP, RTCP, HTTP/2 etc. 
