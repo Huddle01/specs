@@ -1,12 +1,11 @@
 import React from 'react';
+import { StatusToBgColor, type TStatus } from './specLegend';
 
 type TRowData = {
   number: string;
   section: string;
-  state: string;
-  stateClass: string;
-  audit: string;
-  auditClass: string;
+  state: TStatus;
+  audit: TStatus;
   children?: TRowData[];
 };
 
@@ -15,118 +14,55 @@ const data: TRowData[] = [
     number: '1',
     section: 'Introduction',
     state: 'Reliable',
-    stateClass: 'bg-green-500',
     audit: '',
-    auditClass: '',
   },
   {
     number: '1.2',
     section: 'Architecture Diagrams',
     state: 'Reliable',
-    stateClass: 'bg-green-500',
     audit: '',
-    auditClass: '',
   },
   {
     number: '1.3',
     section: 'Key Concepts',
     state: 'Reliable',
-    stateClass: 'bg-green-500',
     audit: '',
-    auditClass: '',
-  },
-
-  {
-    number: '1.5',
-    section: 'System Decomposition',
-    state: 'Reliable',
-    stateClass: 'bg-green-500',
-    audit: '',
-    auditClass: '',
-    children: [
-      {
-        number: '1.5.1',
-        section: 'What are Systems? How do they work?',
-        state: 'Reliable',
-        stateClass: 'bg-green-500',
-        audit: '',
-        auditClass: '',
-      },
-      {
-        number: '1.5.2',
-        section: 'Implementing Systems',
-        state: 'Draft/WIP',
-        stateClass: 'bg-yellow-500',
-        audit: '',
-        auditClass: '',
-      },
-    ],
   },
   {
     number: '2',
     section: 'Systems',
     state: 'Reliable',
-    stateClass: 'bg-green-500',
     audit: '',
-    auditClass: '',
   },
   {
     number: '2.1',
-    section: 'Filecoin Nodes',
+    section: 'Huddle01 Nodes',
     state: 'Stable',
-    stateClass: 'bg-blue-500',
     audit: '',
-    auditClass: '',
     children: [
       {
         number: '2.1.1',
         section: 'Node Types',
         state: 'Stable',
-        stateClass: 'bg-blue-500',
-        audit: '',
-        auditClass: '',
+        audit: 'Draft/WIP',
       },
       {
         number: '2.1.2',
-        section: 'Node Repository',
+        section: 'Media Nodes',
         state: 'Stable',
-        stateClass: 'bg-blue-500',
-        audit: '',
-        auditClass: '',
-        children: [
-          {
-            number: '2.1.2.1',
-            section: 'Key Store',
-            state: 'Reliable',
-            stateClass: 'bg-green-500',
-            audit: '',
-            auditClass: '',
-          },
-          {
-            number: '2.1.2.2',
-            section: 'IPLD Store',
-            state: 'Stable',
-            stateClass: 'bg-blue-500',
-            audit: '',
-            auditClass: '',
-          },
-        ],
+        audit: 'Draft/WIP',
       },
       {
         number: '2.1.3',
-        section: 'Network Interface',
+        section: 'Registry Nodes',
         state: 'Stable',
-        stateClass: 'bg-blue-500',
         audit: 'Draft/WIP',
-        auditClass: 'bg-yellow-500',
       },
       {
         number: '2.1.4',
-        section: 'Clock',
-        state: 'Reliable',
-        stateClass: 'bg-green-500',
-        audit: '',
-        auditClass: '',
+        section: 'Orchestrator Nodes',
+        state: 'Stable',
+        audit: 'Draft/WIP',
       },
     ],
   },
@@ -143,12 +79,12 @@ const SpecStatus = () => {
             </a>
           </td>
           <td
-            className={`px-6 py-4 whitespace-nowrap text-black ${row.stateClass}`}
+            className={`px-6 py-4 whitespace-nowrap text-black ${StatusToBgColor[row.state]}`}
           >
             {row.state}
           </td>
           <td
-            className={`px-6 py-4 whitespace-nowrap text-black ${row.auditClass}`}
+            className={`px-6 py-4 whitespace-nowrap text-black ${StatusToBgColor[row.audit]}`}
           >
             {row.audit}
           </td>
