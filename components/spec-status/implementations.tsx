@@ -11,7 +11,7 @@ const data = [
     // testCoverage: '40%',
     securityAudit: 'Missing',
     securityAuditURL: '#',
-    securityAuditClass: 'bg-gray-500'
+    securityAuditClass: 'bg-gray-500',
   },
   {
     repo: 'registry',
@@ -22,7 +22,7 @@ const data = [
     // testCoverage: '58%',
     securityAudit: 'Missing',
     securityAuditURL: '#',
-    securityAuditClass: 'bg-gray-500'
+    securityAuditClass: 'bg-gray-500',
   },
   {
     repo: 'sushi',
@@ -33,7 +33,7 @@ const data = [
     // testCoverage: '69%',
     securityAudit: 'Missing',
     securityAuditURL: '#',
-    securityAuditClass: 'bg-gray-500'
+    securityAuditClass: 'bg-gray-500',
   },
 ];
 
@@ -67,9 +67,15 @@ const Implementations = () => {
                 <a href={row.link}>{row.repo}</a>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">{row.language}</td>
-              <td className={`px-6 py-4 whitespace-nowrap text-black ${row.ciClass}`}>{row.ci}</td>
+              <td
+                className={`px-6 py-4 whitespace-nowrap text-black ${row.ciClass}`}
+              >
+                {row.ci}
+              </td>
               {/* <td className="px-6 py-4 whitespace-nowrap">{row.testCoverage}</td> */}
-              <td className={`px-6 py-4 whitespace-nowrap text-black ${row.securityAuditClass}`}>
+              <td
+                className={`px-6 py-4 whitespace-nowrap text-black ${row.securityAuditClass}`}
+              >
                 {row.securityAudit === 'Reports' ? (
                   <a href={row.securityAuditURL} className="text-blue-500">
                     <svg className="inline-block w-4 h-4 mr-1">
@@ -85,7 +91,7 @@ const Implementations = () => {
           ))}
         </tbody>
       </table>
-    </div >
+    </div>
   );
 };
 

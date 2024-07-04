@@ -8,7 +8,7 @@ type TRowData = {
   audit: string;
   auditClass: string;
   children?: TRowData[];
-}
+};
 
 const data: TRowData[] = [
   {
@@ -17,7 +17,7 @@ const data: TRowData[] = [
     state: 'Reliable',
     stateClass: 'bg-green-500',
     audit: '',
-    auditClass: ''
+    auditClass: '',
   },
   {
     number: '1.2',
@@ -25,8 +25,7 @@ const data: TRowData[] = [
     state: 'Reliable',
     stateClass: 'bg-green-500',
     audit: '',
-    auditClass: ''
-
+    auditClass: '',
   },
   {
     number: '1.3',
@@ -34,7 +33,7 @@ const data: TRowData[] = [
     state: 'Reliable',
     stateClass: 'bg-green-500',
     audit: '',
-    auditClass: ''
+    auditClass: '',
   },
 
   {
@@ -51,7 +50,7 @@ const data: TRowData[] = [
         state: 'Reliable',
         stateClass: 'bg-green-500',
         audit: '',
-        auditClass: ''
+        auditClass: '',
       },
       {
         number: '1.5.2',
@@ -59,9 +58,9 @@ const data: TRowData[] = [
         state: 'Draft/WIP',
         stateClass: 'bg-yellow-500',
         audit: '',
-        auditClass: ''
-      }
-    ]
+        auditClass: '',
+      },
+    ],
   },
   {
     number: '2',
@@ -69,7 +68,7 @@ const data: TRowData[] = [
     state: 'Reliable',
     stateClass: 'bg-green-500',
     audit: '',
-    auditClass: ''
+    auditClass: '',
   },
   {
     number: '2.1',
@@ -101,7 +100,7 @@ const data: TRowData[] = [
             state: 'Reliable',
             stateClass: 'bg-green-500',
             audit: '',
-            auditClass: ''
+            auditClass: '',
           },
           {
             number: '2.1.2.2',
@@ -109,9 +108,9 @@ const data: TRowData[] = [
             state: 'Stable',
             stateClass: 'bg-blue-500',
             audit: '',
-            auditClass: ''
-          }
-        ]
+            auditClass: '',
+          },
+        ],
       },
       {
         number: '2.1.3',
@@ -119,7 +118,7 @@ const data: TRowData[] = [
         state: 'Stable',
         stateClass: 'bg-blue-500',
         audit: 'Draft/WIP',
-        auditClass: 'bg-yellow-500'
+        auditClass: 'bg-yellow-500',
       },
       {
         number: '2.1.4',
@@ -127,23 +126,32 @@ const data: TRowData[] = [
         state: 'Reliable',
         stateClass: 'bg-green-500',
         audit: '',
-        auditClass: ''
-
-      }
-    ]
+        auditClass: '',
+      },
+    ],
   },
 ];
 
 const SpecStatus = () => {
   const renderRows = (rows: TRowData[]) => {
     return rows.map((row) => (
-      <React.Fragment >
+      <React.Fragment>
         <tr>
           <td className="px-6 py-4 whitespace-nowrap text-blue-500">
-            <a href={row.audit}>{row.number} {row.section}</a>
+            <a href={row.audit}>
+              {row.number} {row.section}
+            </a>
           </td>
-          <td className={`px-6 py-4 whitespace-nowrap text-black ${row.stateClass}`}>{row.state}</td>
-          <td className={`px-6 py-4 whitespace-nowrap text-black ${row.auditClass}`}>{row.audit}</td>
+          <td
+            className={`px-6 py-4 whitespace-nowrap text-black ${row.stateClass}`}
+          >
+            {row.state}
+          </td>
+          <td
+            className={`px-6 py-4 whitespace-nowrap text-black ${row.auditClass}`}
+          >
+            {row.audit}
+          </td>
         </tr>
         {row.children && renderRows(row.children)}
       </React.Fragment>
@@ -166,9 +174,7 @@ const SpecStatus = () => {
             </th>
           </tr>
         </thead>
-        <tbody className=" divide-y divide-gray-200">
-          {renderRows(data)}
-        </tbody>
+        <tbody className=" divide-y divide-gray-200">{renderRows(data)}</tbody>
       </table>
     </div>
   );
