@@ -8,6 +8,7 @@ export const baseOptions: BaseLayoutProps = {
     // title: 'Huddle01 Specs',
     enableSearch: true,
     url: '/specs',
+    transparentMode: 'none',
     title: (
       <>
         <Image
@@ -15,7 +16,7 @@ export const baseOptions: BaseLayoutProps = {
           src="/logo.png"
           width={100}
           height={100}
-          className="w-full flex-auto align-center"
+          className="w-full pb-1 pl-1 flex-auto align-center"
         />
       </>
     ),
