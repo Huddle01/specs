@@ -1,0 +1,5 @@
+{
+    "root": false,
+    "pages": ["media-node", "registry-node", "orchestrator"]
+  }
+  
