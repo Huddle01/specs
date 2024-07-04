@@ -136,7 +136,7 @@ const SpecStatus = () => {
   const renderRows = (rows: TRowData[]) => {
     return rows.map((row) => (
       <React.Fragment>
-        <tr>
+        <tr className="border-t-[1px] border-gray-500">
           <td className="px-6 py-4 whitespace-nowrap text-blue-500">
             <a href={row.audit}>
               {row.number} {row.section}
@@ -160,7 +160,7 @@ const SpecStatus = () => {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
+      <table className="min-w-full">
         <thead className="">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
@@ -174,7 +174,7 @@ const SpecStatus = () => {
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">{renderRows(data)}</tbody>
+        <tbody>{renderRows(data)}</tbody>
       </table>
     </div>
   );

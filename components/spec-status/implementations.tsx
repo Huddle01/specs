@@ -40,8 +40,8 @@ const data = [
 const Implementations = () => {
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="">
+      <table className="min-w-full">
+        <thead>
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-white-500 uppercase tracking-wider">
               Repo
@@ -60,9 +60,9 @@ const Implementations = () => {
             </th>
           </tr>
         </thead>
-        <tbody className=" divide-y divide-gray-200">
+        <tbody>
           {data.map((row, index) => (
-            <tr>
+            <tr className="border-t-[1px] border-gray-500">
               <td className="px-6 py-4 whitespace-nowrap text-blue-500">
                 <a href={row.link}>{row.repo}</a>
               </td>

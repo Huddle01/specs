@@ -30,7 +30,7 @@ const SpecLegend = () => {
   ];
 
   return (
-    <table className="min-w-full divide-y divide-gray-500">
+    <table className="min-w-full">
       <thead className="">
         <tr>
           <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
@@ -41,13 +41,11 @@ const SpecLegend = () => {
           </th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-500">
+      <tbody>
         {rows.map((row) => (
-          <tr>
-            <td className="px-6 py-4 whitespace-nowrap">{row.description}</td>
-            <td
-              className={`px-6 py-4 whitespace-nowrap text-black ${row.className}`}
-            >
+          <tr className="border-t-[1px] border-gray-500">
+            <td className="px-6 py-4">{row.description}</td>
+            <td className={`px-6 py-4 text-black ${row.className}`}>
               {row.label}
             </td>
           </tr>
