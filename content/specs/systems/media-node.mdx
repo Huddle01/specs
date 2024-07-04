@@ -3,31 +3,20 @@ title: Media Node
 description: Your first document
 ---
 
-# Introduction
+These are the Nodes which are responsible for processing and managing media streams (audio/video). They are at the core of the network.
+Media nodes are responsible for encoding, decoding, mixing, and routing media streams in the network. They provide the most important
+resources such as CPU, and bandwidth to the network. In short, these nodes are what make the network work.
 
-Media Nodes serve as the backbone of the dRTC Network, providing essential bandwidth and computational resources. Its responsibility is to establish WebRTC connections with the clients in the room . Media Nodes are responsible for processing media data, such as audio and video streams, and facilitating communication between clients. Media Nodes are incentivized to provide their services through the dRTC Network's token economy.
+`The utility provided by the media nodes is to provide resources for a scalable and realiable way to process and route media stream in the network of dRTC.`
 
-## Components of Media Node:
+In this section, we will discuss the architecture, lifecycle, and components of the Media Node. We will also discuss how the Media Node interacts with the Orchestrator and Registry Networks.
 
-RPC Layer: Media Nodes communicate with the Orchestrator and Registry Networks through Remote Procedure Calls (RPC). This layer is responsible for handling requests from Orchestrators and Registry Networks, and for responding with the necessary information.
+## Architecture
 
-API Layer: is reponsible for responding with health checks, status checks,usage metrics, and other information about the node's current state. This layer is crucial for Orchestrators to make informed decisions about the node's capabilities and resources.
+Every Media Node is composed of different components that work together to provide the interface required to process and route media streams.
+The modules are divided as follows:
+ 1. **Media Engine**: This is the core of the Media Node. It is responsible for encoding, decoding, mixing, and routing media streams.
+ 2. **RPC Module**: This module is responsible for handling the communication between the Media Node and the Orchestrator.
+ 3. **Registry Module**: This module is responsible for handling the communication between the Media Node and the Registry Network.
+ 4. **QoS Module**: This module is responsible for handling the Quality of Service (QoS) of the media streams.
 
-Media Layer: is where a Media Node processes media data within the dRTC Network. This layer is responsible for operations within WebRTC such as congestion control, employing algorithms like Simulcast to adapt video quality to the user's bandwidth, to scale based on the client's resource limitations. This Layer is an abstraction over the WebRTC SFU implementation used by the Media Node.
-
-EVM Wallet Layer: Media Nodes are incentivized to provide their services through the dRTC Network's token economy. This layer manages the node's wallet, ensuring that the node is compensated for its services. Wallet is also crucial for authentication and identity verification of a Media Node.
-
-## LifeCycle of MediaNode :
-
-1. Configuration: Media Nodes are configured with the necessary information to connect to the Registry Network. This includes whitelisting the MediaNode with a MediaNode NFT Key, which is used to authenticate the node's identity.Followed by SelfChecks which includes checking for static ip address, checking for the required ports to be open, checking if minimum bandwidth requirement fulfilment then ready for registration.
-
-2. Registration: Media Nodes register with the Registry Network to be included in the network. This process involves the exchange of information about the node's capabilities and resources.
-
-3. Ready for Connections: Once registered, the Media Node is ready to accept client connections. The node can now process incoming media streams and facilitate communication between clients.
-
-
-<Cards>
-  <Card title="Learn more about RTC" href="/specs/rtc" />
-  <Card title="Learn more about Orchestrator" href="/specs/medianode-rpc-orchestrator" />
-  <Card title="Learn more about Registry" href="/specs/medianode-rpc-registry" />
-</Cards>

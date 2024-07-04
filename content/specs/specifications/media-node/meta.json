@@ -1,5 +1,5 @@
 {
   "title": "Media Node",
   "root": false,
-  "pages": ["specifications", "..."]
+  "pages": ["overview", "rtc", "rpc-orchestrator", "rpc-registry"]
 }

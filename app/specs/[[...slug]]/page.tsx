@@ -21,6 +21,9 @@ export default async function Page({
       footer={{
         enabled: true,
       }}
+      breadcrumb={{
+        enabled: true,
+      }}
       key="specs-root-page"
       toc={page.data.exports.toc}
       tableOfContent={{
