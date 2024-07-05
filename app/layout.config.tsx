@@ -10,7 +10,7 @@ export const baseOptions: BaseLayoutProps = {
     url: '/specs',
     transparentMode: 'none',
     title: (
-      <div className='flex items-center w-full justify-center gap-2' >
+      <div className="flex items-center w-full justify-center gap-2">
         <Image
           alt="huddle01"
           src="/logo.png"
@@ -18,10 +18,8 @@ export const baseOptions: BaseLayoutProps = {
           height={40}
           className="w-full pb-1 pl-1 flex-auto align-center"
         />
-        <div className='flex font-mono gap-2 text-xl font-bold -translate-y-[1px]' >
-          <p className=' w-full' >
-            Huddle01
-          </p>
+        <div className="flex font-mono gap-2 text-xl font-bold -translate-y-[1px]">
+          <p className=" w-full">Huddle01</p>
           <p>Specs</p>
         </div>
       </div>
