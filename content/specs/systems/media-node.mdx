@@ -20,21 +20,31 @@ Every Media Node is composed of different components that work together to provi
 The modules are divided as follows:
  1. **Media Engine**: This module runs a `Selective Forwarding Unit (SFU)`, Which is responsible for managing different WebRTC connections and routing media packets between those connection.
  SFUs are the core building block for any media node, We will deep dive into the working of the media engine in the next section.
- 2. **RPC Module**: Its responsible for handling the communication between the Media Node and any Orchestrator, Media Nodes in itself are designed to act 
+ 2. **RPC Module**: Its responsible for handling the communication between the Media Node and any Orchestrator, Media Nodes in itself are designed to act
  as a worker in the network and based on the instructions from the Orchestrator they take different actions.
  3. **Registry Module**: Its responsible for handling the communication between the Media Node and the Registry Network, Any Media Node if is ready to provide there resources
  must advertise itself to the Registry Network with the capabilities it can provide.
- 4. **QoS Module**: Its responsible for handling the `Quality of Service` of any Media Node. Its kept in here to have checks and balances 
+ 4. **QoS Module**: Its responsible for handling the `Quality of Service` of any Media Node. Its kept in here to have checks and balances
  on the resources provided by the Media Node and also to ensure that the Media Node is providing the resources as per the capabilities it has advertised to the network.
 
 ## Lifecycle
 The lifecycle of the Media Node is very simple, It can be broken down into simple steps:
 1. **Bootup**: Media Node boots up and starts the Media Engine with the capabilities it has.
-2. **Registery**: Media Node advertises itself to the Registry Network with the capabilities it can provide.
+2. **Register**: Media Node advertises itself to the Registry Network with the capabilities it can provide.
 3. **Orchestration**: Media Node waits for the instructions from the Orchestrator Network.
 4. **Quality of Service**: This Module is always running in the background to ensure Media Nodes are providing the resources as per the capabilities they have advertised.
 
 ## Components
 
 ### Media Engine
-Every dRTC Media Node uses several different protocols of communication to interact with different systems in the network such as WebRTC, RTP, RTCP, HTTP/2 etc. 
+Every dRTC Media Node uses several different protocols of communication to interact with different systems in the network such as WebRTC, RTP, RTCP, HTTP/2 etc.
+The Media Engine at the core is a SFU (Selective Forwarding Unit) which is responsible for managing different WebRTC connections and routing media packets between those connections.
+
+There are mutliple OSS implementations of SFUs available
+- [Janus](https://github.com/meetecho/janus-gateway)
+- [Jitsi](https://github.com/jitsi/jitsi-videobridge)
+- [Kurento](https://github.com/Kurento/kurento)
+- [Mediasoup](https://github.com/versatica/mediasoup)
+- [Livekit](https://github.com/livekit/livekit)
+
+The Momo Implementation of the MediaNode utilises mediasoup as the media engine.
