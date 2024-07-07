@@ -1,0 +1,49 @@
+---
+title: "Welcome to Huddle01 Docs"
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Callout } from 'fumadocs-ui/components/callout';
+import { FastForward, Cpu, FileStack, Globe, Package } from 'lucide-react';
+
+Huddle01 is a decentralized real-time communication (dRTC) platform that enables secure, 
+peer-to-peer video conferencing over the internet. Built on blockchain technology, 
+it leverages a network of nodes to facilitate direct media traffic between users, 
+ensuring high performance and low latency. 
+Huddle01 integrates Web3 features like token-gating, NFTs as avatars. 
+Economic incentives are built into the platform to maintain reliable and continuous service, 
+enhancing user privacy and security without the need for centralized servers.
+
+
+## Where to go next?
+<Cards className='w-full' >
+  <Card
+    title="System Architecture"
+    href="/specs/systems/media-node"
+    icon={<Package />}
+    description="Learn about the role of Registry in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="Understanding Media Nodes"
+    icon={<FastForward />}
+    href="/specs/specifications/media-node/specifications"
+    description="Learn about the of Media Nodes in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="How Registry works?"
+    icon={<FileStack />}
+    href="/specs/specifications/media-node/specifications"
+    description="How Registry becomes the central storage for the network."
+    className='w-full'
+  />
+  <Card
+    title="Using and making Orchestrator"
+    icon={<Globe />}
+    href="/specs/specifications/media-node/specifications"
+    description="Understand how to use and make Orchestrator for the dRTC network."
+    className='w-full'
+  />
+</Cards>
+

@@ -2,16 +2,14 @@
   "title": "Specs",
   "root": true,
   "pages": [
-    "index",
-    "spec-status",
-    "architecture",
-    "---Systems---",
-    "...systems",
-    "---Specifications---",
-    "...specifications",
-    "---Implementations---",
-    "...implementations",
-    "---Glossary---",
-    "...glossary"
+    "welcome",
+    "---Basics---",
+    "...basics",
+    "---Registry Service---",
+    "...registry-service",
+    "---Media Nodes---",
+    "...media-nodes",
+    "---Reference---",
+    "...reference"
   ]
 }

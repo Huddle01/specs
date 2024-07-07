@@ -1,0 +1,8 @@
+{
+  "root": false,
+  "pages": [
+    "registry-rpc",
+    "orchestrator-rpc",
+    "media-node-rpc"
+  ]
+}
