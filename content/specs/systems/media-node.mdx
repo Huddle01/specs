@@ -4,6 +4,8 @@ description: These nodes are responsible for processing and managing media strea
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { FastForward, Cpu, FileStack, Globe, Package } from 'lucide-react';
 
 These are the Nodes which are responsible for processing and managing media streams (audio/video). They are at the core of the network.
 Media nodes are responsible for ***encoding, decoding, mixing, and routing media streams*** in the network. They provide the most important
@@ -14,6 +16,24 @@ The utility provided by the media nodes is to provide resources for a scalable a
 </Callout>
 
 In this section, we will discuss the architecture, lifecycle, and components of the Media Node. We will also discuss how the Media Node interacts with the Orchestrator and Registry Networks.
+
+## Where to go next?
+<Cards className='w-full' >
+  <Card
+    title="System Architecture"
+    href="/specs/systems/media-node#architecture"
+    icon={<Package />}
+    description="Learn about the system architecture of the Media Node in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="Whats Cascading of Media Nodes?"
+    icon={<FastForward />}
+    href="/specs/systems/media-node#cascading"
+    description="The secret to infinite scalability of the dRTC network."
+    className='w-full'
+  />
+</Cards>
 
 <hr />
 # Architecture
@@ -64,16 +84,37 @@ Now we have some understanding of how SFUs Work, Lets understand the issue of Ba
 One thing we have to understand about any Media Engine that it takes in a Media Stream from one WebRTC Peer Connection and forwards it to another or multiple WebRTC Peer Connection
 this is one of the core functionalities of any Media Node, thus the bandwidth required to do such tasks is overwhelmingly huge, and at one point it will become such that the Media Node will not be able to handle the load.
 Considering this, a single Media Node can never handle the an infinite number of participants, this is a classic problem of scalablility in any distributed system. Much like any Database, you can't have a single database
-handle an infinite number of storage and much like any database which needs to be sharded, the Media Node also needs to be cascaded to handle the load. We talk more about this in the [Cascading](/specs/systems/media-node#cascading-of-media-nodes) Section.
+handle an infinite number of storage and much like any database which needs to be sharded, the Media Node also needs to be cascaded to handle the load. We talk more about this in the *[Cascading](/specs/systems/media-node#cascading-of-media-nodes)* Section.
 
 SFUs are not something new, they have been around for a long time, and are used in many different applications like Google Meet, Zoom etc.
-There are mutliple open source implementations of SFUs available, [Janus](https://github.com/meetecho/janus-gateway), [Jitsi](https://github.com/jitsi/jitsi-videobridge)
-, [Kurento](https://github.com/Kurento/kurento), [Mediasoup](https://github.com/versatica/mediasoup), [Livekit](https://github.com/livekit/livekit)
+There are mutliple open source implementations of SFUs available, *[Janus](https://github.com/meetecho/janus-gateway)*, *[Jitsi](https://github.com/jitsi/jitsi-videobridge)*
+, *[Kurento](https://github.com/Kurento/kurento)*, *[Mediasoup](https://github.com/versatica/mediasoup)*, *[Livekit](https://github.com/livekit/livekit)*.
 
 <Callout>
-The [Momo Implementation](/specs/implementations/momo) of the Media Node by Huddle01 utilises **mediasoup** with some additional custom features as the media engine, we encourage you to develop your own implementation of the Media Node with the media engine of your choice.
-with the simple integation as per the [dRTC Media Node Specs](/specs/specifications/media-node/overview), you can have your own Media Node becoming a part of the dRTC Network.
+The *[Momo Implementation](/specs/implementations/momo)* of the Media Node by Huddle01 utilises **mediasoup** with some additional custom features as the media engine, we encourage you to develop your own implementation of the Media Node with the media engine of your choice.
+with the simple integation as per the *[dRTC Media Node Specs](/specs/specifications/media-node/overview)*, you can have your own Media Node becoming a part of the dRTC Network.
 </Callout>
 
 
 ### Cascading
+As we discussed in the *[Issue of Bandwidth](#issue-of-bandwidth)* Section, a single Media Node can never handle an infinite number of participants, thus the Media Node needs to be cascaded to handle the load.
+Cascading is a simple concept, which we can understand from Database Sharding, where a single database is sharded into multiple databases to handle the load.
+Similarly, a single Media Node can be cascaded into multiple Media Nodes to handle the load, Where one Media Node forwards the media stream to another Media Node and so on.
+***As the network theoritically has an infinite amount of bandwidth there will be no limit to the amount of Media Streams the dRTC network can handle.***.
+
+Now cascading can be achieved in multiple ways, where a client from one region connects to the Media Nodes nearest to them, and the Media Node nearest to them forwards the media stream to the Media Node nearest to the other client and so on.
+or in another scenerio where client in the same region are connected to different media nodes and those Media Nodes pass the Media Stream among themselves and then forward it to the client. 
+
+`There are N-number of ways to cascade the Media Nodes, and the choice of cascading depends on the requirements of the application using the dRTC Network.`
+
+We at Huddle01 never enforce any specific way of cascading the Media Nodes, we leave it upto the users to decide how they want to cascade the Media Nodes in their application
+. And this is where the the concept of `Orchestration` becomes such a powerful concept. Using the `RPC Network` for Orchestration inside the Media Nodes,
+the Media Nodes can be instructed to cascade in any way the Orchestrator wants them to cascade.
+
+You can read more about the *[Orchestrator](/specs/systems/orchestrator)* in this section.
+
+<Callout>
+The *[Momo Implementation](/specs/implementations/momo)* of the Media Node by Huddle01 exposes a simple *[RPC Specs](/specs/specifications/media-node/overview#how-to-do-cascading)* to cascade the Media Nodes, you can cascade the Media Nodes in any way you want, based on the requirements of your application.
+</Callout>
+
+To understand more about how *[Huddle01 Meet](https://huddle01.app)* implements the cascading of Media Nodes, you can read the blog post *[here](https://huddle01.com/blog/implementing-cascading-to-achieve-better-scalability-at-huddle01)*.
