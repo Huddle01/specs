@@ -1,0 +1,10 @@
+{
+  "root": false,
+  "pages": [
+    "index",
+    "architecture",
+    "requirements",
+    "modules",
+    "implementations"
+  ]
+}

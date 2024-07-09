@@ -5,10 +5,12 @@
     "welcome",
     "---Basics---",
     "...basics",
-    "---Registry Service---",
-    "...registry-service",
     "---Media Nodes---",
     "...media-nodes",
+    "---Registry---",
+    "...registry",
+    "---Orchestrator---",
+    "...orchestrator",
     "---Reference---",
     "...reference"
   ]

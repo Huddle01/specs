@@ -1,0 +1,12 @@
+{
+  "title": "Modules",
+  "root": false,
+  "pages": [
+    "api-module",
+    "datastore-module",
+    "incentive-module",
+    "libp2p-module",
+    "qos-module",
+    "rpc-module"
+  ]
+}
