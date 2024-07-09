@@ -6,7 +6,7 @@ description: These nodes are responsible for processing and managing media strea
 import { Callout } from 'fumadocs-ui/components/callout';
 
 These are the Nodes which are responsible for processing and managing media streams (audio/video). They are at the core of the network.
-Media nodes are responsible for encoding, decoding, mixing, and routing media streams in the network. They provide the most important
+Media nodes are responsible for ***encoding, decoding, mixing, and routing media streams*** in the network. They provide the most important
 resources such as CPU, and bandwidth to the network. In short, these nodes are what make the network work.
 
 <Callout type="info">
@@ -15,7 +15,8 @@ The utility provided by the media nodes is to provide resources for a scalable a
 
 In this section, we will discuss the architecture, lifecycle, and components of the Media Node. We will also discuss how the Media Node interacts with the Orchestrator and Registry Networks.
 
-## Architecture
+<hr />
+# Architecture
 Every Media Node is composed of different components that work together to provide the interface required to process and route media streams.
 The modules are divided as follows:
  1. **Media Engine**: This module runs a `Selective Forwarding Unit (SFU)`, Which is responsible for managing different WebRTC connections and routing media packets between those connection.
@@ -27,24 +28,52 @@ The modules are divided as follows:
  4. **QoS Module**: Its responsible for handling the `Quality of Service` of any Media Node. Its kept in here to have checks and balances
  on the resources provided by the Media Node and also to ensure that the Media Node is providing the resources as per the capabilities it has advertised to the network.
 
-## Lifecycle
+# Lifecycle
 The lifecycle of the Media Node is very simple, It can be broken down into simple steps:
 1. **Bootup**: Media Node boots up and starts the Media Engine with the capabilities it has.
 2. **Register**: Media Node advertises itself to the Registry Network with the capabilities it can provide.
 3. **Orchestration**: Media Node waits for the instructions from the Orchestrator Network.
 4. **Quality of Service**: This Module is always running in the background to ensure Media Nodes are providing the resources as per the capabilities they have advertised.
 
-## Components
+<hr/ >
 
-### Media Engine
+# Components
+
+## Media Engine
 Every dRTC Media Node uses several different protocols of communication to interact with different systems in the network such as WebRTC, RTP, RTCP, HTTP/2 etc.
 The Media Engine at the core is a SFU (Selective Forwarding Unit) which is responsible for managing different WebRTC connections and routing media packets between those connections.
 
-There are mutliple OSS implementations of SFUs available
-- [Janus](https://github.com/meetecho/janus-gateway)
-- [Jitsi](https://github.com/jitsi/jitsi-videobridge)
-- [Kurento](https://github.com/Kurento/kurento)
-- [Mediasoup](https://github.com/versatica/mediasoup)
-- [Livekit](https://github.com/livekit/livekit)
+### Selective Forwarding Unit (SFU)
+The choice of using an SFU stems from the fact that WebRTC is a peer-to-peer protocol and it is not feasible to have a peer-to-peer connection between every participant in a conference.
+to better understand the working of an SFU, lets take an example of a conference call with 6 participants, In a peer-to-peer connection, every participant will have to send their media stream to every other participant.
+This will result in a total of 30 streams being sent over the network from a device, which is not feasible to be handled by lets say a mobile device which has limited resources. Though there are multiple
+ways to handle this, like using a star topology, where every participant sends their media stream to a central node and the central node forwards the media stream to every other participant. But that too fails in a number of different cases.
 
-The Momo Implementation of the MediaNode utilises mediasoup as the media engine.
+![Image](/medianode/mesh.png)
+
+An SFU solves this problem by acting as a middleman between the participants, Every participant creates a WebRTC Peer Connection with the SFU and sends their media stream to the SFU and the SFU forwards the media stream to the other participants.
+Its as if SFUs work like any another Peer in the Network. SFUs are not just some relays which forwards the media packets, they are intelligent enough and have very good context about the exchange
+happening between the participants, thus they do more stuff like mixing the media streams, changing the resolution of the media streams, changing the codec of the media streams etc, based on the requirements of the participants.
+
+![Image](/medianode/sfu.png)
+
+#### Issue of Bandwidth
+
+Now we have some understanding of how SFUs Work, Lets understand the issue of Bandwidth in the context of SFUs.
+
+One thing we have to understand about any Media Engine that it takes in a Media Stream from one WebRTC Peer Connection and forwards it to another or multiple WebRTC Peer Connection
+this is one of the core functionalities of any Media Node, thus the bandwidth required to do such tasks is overwhelmingly huge, and at one point it will become such that the Media Node will not be able to handle the load.
+Considering this, a single Media Node can never handle the an infinite number of participants, this is a classic problem of scalablility in any distributed system. Much like any Database, you can't have a single database
+handle an infinite number of storage and much like any database which needs to be sharded, the Media Node also needs to be cascaded to handle the load. We talk more about this in the [Cascading](/specs/systems/media-node#cascading-of-media-nodes) Section.
+
+SFUs are not something new, they have been around for a long time, and are used in many different applications like Google Meet, Zoom etc.
+There are mutliple open source implementations of SFUs available, [Janus](https://github.com/meetecho/janus-gateway), [Jitsi](https://github.com/jitsi/jitsi-videobridge)
+, [Kurento](https://github.com/Kurento/kurento), [Mediasoup](https://github.com/versatica/mediasoup), [Livekit](https://github.com/livekit/livekit)
+
+<Callout>
+The [Momo Implementation](/specs/implementations/momo) of the Media Node by Huddle01 utilises **mediasoup** with some additional custom features as the media engine, we encourage you to develop your own implementation of the Media Node with the media engine of your choice.
+with the simple integation as per the [dRTC Media Node Specs](/specs/specifications/media-node/overview), you can have your own Media Node becoming a part of the dRTC Network.
+</Callout>
+
+
+### Cascading
