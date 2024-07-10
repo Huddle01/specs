@@ -20,18 +20,25 @@ In this section, we will discuss the architecture, lifecycle, and components of 
 ## Where to go next?
 <Cards className='w-full' >
   <Card
-    title="System Architecture"
+    title="Media Node Architecture"
     href="/specs/systems/media-node#architecture"
     icon={<Package />}
     description="Learn about the system architecture of the Media Node in the dRTC network."
     className='w-full'
   />
   <Card
-    title="Whats Cascading of Media Nodes?"
+    title="What is Cascading of Media Nodes?"
     icon={<FastForward />}
     href="/specs/systems/media-node#cascading"
     description="The secret to infinite scalability of the dRTC network."
     className='w-full'
+  />
+  <Card 
+    title = "Media Nodes as Workers"
+    icon = {<Cpu />}
+    href = "/specs/systems/media-node#why-a-worker"
+    description = "Learn about the Media Nodes as Workers in the dRTC network."
+    className = 'w-full'
   />
 </Cards>
 
@@ -63,6 +70,22 @@ The lifecycle of the Media Node is very simple, It can be broken down into simpl
 Every dRTC Media Node uses several different protocols of communication to interact with different systems in the network such as WebRTC, RTP, RTCP, HTTP/2 etc.
 The Media Engine at the core is a SFU (Selective Forwarding Unit) which is responsible for managing different WebRTC connections and routing media packets between those connections.
 
+### What is WebRTC?
+Before we deep dive into the working of the Media Engine, We need to understand the fundamental protocol used for communication in dRTC network, which is WebRTC.
+WebRTC is a free, open-source protocol that provides web browsers and mobile applications with real-time communication (RTC) via simple application programming interfaces (APIs).
+It allows audio and video communication to work inside web pages by allowing direct peer-to-peer communication, eliminating the need to install plugins or download native apps like Skype in the early days of the internet communication.
+The protocol can also be used to communicate with other devices like IoT devices, Smart TVs, etc.
+
+![Image](/medianode/webrtc.png)
+
+WebRTC is not a single protocol, but a suite of protocols and APIs such as *ICE*, *STUN*, *TURN*, *RTP*, *RTCP*, *SDP*, etc. which work together to provide real-time communication capabilities to the web browsers and mobile applications, 
+the creators of WebRTC have done a great job in abstracting the complexity of these protocols and APIs and providing a simple API to the developers to use, like the problem of NAT Traversal is solved by the ICE Protocol, 
+the problem of finding the public IP of the device is solved by the STUN Protocol, the problem of relaying the media packets is solved by the TURN Protocol etc, Even the problem of encoding and decoding the media packets is solved by the WebRTC API.
+Its such a powerful API that it has become the defacto standard for real-time communication on the web, but it has its own limitations, like it can't handle a large number of participants in a conference call, 
+it can't handle the load of a large number of media streams etc, and this is where the concept of Selective Forwarding Unit (SFU) comes into play.
+
+To learn more about WebRTC, you can visit the Google I/O 2013 talk on WebRTC by `Justin Uberti`, the tech lead of the WebRTC project at Google, [here](https://www.youtube.com/watch?v=p2HzZkd2A40).
+
 ### Selective Forwarding Unit (SFU)
 The choice of using an SFU stems from the fact that WebRTC is a peer-to-peer protocol and it is not feasible to have a peer-to-peer connection between every participant in a conference.
 to better understand the working of an SFU, lets take an example of a conference call with 6 participants, In a peer-to-peer connection, every participant will have to send their media stream to every other participant.
@@ -77,7 +100,7 @@ happening between the participants, thus they do more stuff like mixing the medi
 
 ![Image](/medianode/sfu.png)
 
-#### Issue of Bandwidth
+### Issue of Bandwidth
 
 Now we have some understanding of how SFUs Work, Lets understand the issue of Bandwidth in the context of SFUs.
 
@@ -105,6 +128,8 @@ Similarly, a single Media Node can be cascaded into multiple Media Nodes to hand
 Now cascading can be achieved in multiple ways, where a client from one region connects to the Media Nodes nearest to them, and the Media Node nearest to them forwards the media stream to the Media Node nearest to the other client and so on.
 or in another scenerio where client in the same region are connected to different media nodes and those Media Nodes pass the Media Stream among themselves and then forward it to the client. 
 
+![Image](/medianode/cascading.png)
+
 `There are N-number of ways to cascade the Media Nodes, and the choice of cascading depends on the requirements of the application using the dRTC Network.`
 
 We at Huddle01 never enforce any specific way of cascading the Media Nodes, we leave it upto the users to decide how they want to cascade the Media Nodes in their application
@@ -118,3 +143,94 @@ The *[Momo Implementation](/specs/implementations/momo)* of the Media Node by Hu
 </Callout>
 
 To understand more about how *[Huddle01 Meet](https://huddle01.app)* implements the cascading of Media Nodes, you can read the blog post *[here](https://huddle01.com/blog/implementing-cascading-to-achieve-better-scalability-at-huddle01)*.
+
+### Specifications
+Every dRTC Compatile Media Node needs to follow a certain set of specifications to be compatible with the dRTC network. These specifications are defined in the `dRTC Media Node Specs` and are designed to ensure every Media Engine is compatible with the network.
+dRTC network is designed to accommodate any Media Engine, and its highly encouraged to build new Media Engines based on the requirements of the application using the dRTC network, which can be used by anyone from the network.
+<Callout>
+If you are interested in building your own dRTC compatible Media Engine, you can read more about the specifications of Media Engine compatible with the dRTC network here [Read More](/specs/specifications/media-node/specifications).
+</Callout>
+
+## RPC Module
+Every Media Node is designed to act as a worker in the network providing valuable resource such as Bandwidth, CPU, etc. to the network. The Media Node is designed to take instructions from any `Orchestrator` in the network and act on those instructions.
+The RPC Module is responsible for handling the communication between the Media Node and the Orchestrator. The Media Node exposes a set of APIs which can be used by the Orchestrator to instruct the Media Node to take different actions.
+The RPC Module is built on top of `gRPC` and uses `HTTP/2` for communication between the Media Node and the Orchestrator. The RPC Module is designed to be highly scalable and fault tolerant, and can handle a large number of requests from the Orchestrator.
+
+### Why a Worker?
+While building the dRTC network, we wanted to build a network where users can monetize their resources by providing services to the network. The concept of Media Nodes self aligning themselves and providing resources to the network is a powerful concept, but 
+becomes totally useless for larger scheme of things such as when thinking about `Cascading`, `QoS`, `Rate Limiting` etc. Every application trying to leverage the dRTC network will have different requirements and the a single set of protocol and standards can never fulfill all the requirements.
+Thus the concept of `Orchestrator` comes into play, where any application can build their own Orchestrator based on their requirements and use the resources of the Media Nodes in the network. 
+
+<Callout>
+If you are interested in building your own Orchestrator, you can read more about the specifications of Orchestrator compatible with the dRTC network here [Read More](/specs/systems/orchestrator).
+</Callout>
+
+### Authentication
+TBD
+
+
+### Denial of Service (DoS) Protection
+TBD
+
+
+### Rate Limiting
+TBD
+
+
+### Specifications
+A dRTC media node needs to follow a certain set of specifications to be compatible with the dRTC network. These specifications are defined in the `dRTC Media Node Specs` and are designed to ensure that the Media Node is compatible with the network and can be used by any Orchestrator in the network.
+
+<Callout>
+If you are interested in building your own dRTC compatible Media Node, you can read more about the specifications of Media Node compatible with the dRTC network here [Read More](/specs/specifications/media-node/specifications).
+</Callout>
+
+
+## Registry Module
+Every Media Node in the network needs to advertise itself to the Registry Network with the capabilities it can provide. The Registry Module is responsible for handling the communication between the Media Node and the Registry Network.
+Registry Network acts as a central registry for the network which holds all the information about the Media Nodes such as QoS (Quality of Service), Latency, Bandwidth, CPU, etc. The Registry Network can be used by the Orchestrator or any other third party systems to get information about the Media Nodes and any other information about the network.
+<Callout>
+To learn more about the Registry Network, you can read more about the System of Registry in the dRTC network here [Read More](/specs/systems/registry).
+</Callout>
+
+This module is built on top of `Libp2p` and uses `gossipsub` to communicate with the network. Libp2p is a modular network stack which is used to build peer-to-peer applications, it provides a set of protocols and standards which can be used to build any peer-to-peer application.
+Gossipsub is a protocol used to broadcast messages in a peer-to-peer network, it is used to broadcast messages in the network about the Media Nodes and any other information about the network.
+
+### Authentication
+TBD
+
+### Specifications
+Every dRTC Media Node needs to follow a certain set of specifications to be compatible with the dRTC network. These specifications are defined in the `dRTC Media Node Specs` and are designed to ensure that the Media Node is compatible with the network and can be used by any Orchestrator in the network.
+
+<Callout>
+If you are interested in building your own dRTC compatible Media Node, you can read more about the specifications of Media Node compatible with the dRTC network here [Read More](/specs/specifications/media-node/specifications).
+</Callout>
+
+
+## QoS Module
+Every distributed system needs to have checks and balances on the resources provided by the nodes in the network. The QoS Module is responsible for handling the `Quality of Service` of any Media Node.
+The QoS Module exposes a set of APIs which must be present in every Media Node to ensure task of `Policing` the resources provided by the Media Node can be done.
+
+In absence of the QoS Module, the Media Node cannot be trusted to provide the resources as per the capabilities it has advertised to the network, and this can lead to a number of different problems in the network such as `Bandwidth Hogging`, `CPU Hogging`, `Latency Issues` etc.
+
+Right now the QoS Module is kept simple, and only does the task of `Policing` the resources provided by the Media Node, but in future the QoS Module can be extended to do more stuff like `Rate Limiting`, `Throttling`, `Adaptive Bitrate`, etc.
+
+### Working of QoS Module
+The process of `Policing` right now in the `dRTC Network` is done by the `Registry` Network. Where the `Registry` Network chooses two Media Nodes from the Pool of Media Nodes at random and ask these Media Nodes to exchange media streams with each other.
+Every Media Nodes while chosen to do a `QoS` task of each other are given roles of `Prover` and `Challenger`, where the `Prover` is the Media Node which is providing the resources and the `Challenger` is the Media Node which is challenging the resources provided by the `Prover`. 
+
+<Callout>
+To learn more about the Registry Network, and how the Quality of Service is maintained in the dRTC network, you can read more about the System of Registry in the dRTC network here [Read More](/specs/systems/registry).
+</Callout>
+
+Both `Prover` and `Challenger` make a WebRTC Peer Connection with each other, where the `Challenger` is needed to use `ffmpeg` to generate a media stream of a specific size and send it to the `Prover`, the `Prover` is needed to receive the media stream and calculate the `QoS` of the media stream.
+
+The `QoS` is calculated based on the `Latency`, `Bandwidth`, `CPU Usage`, `Packet Loss`, `Jitter` etc. of the media stream. The `QoS` is then sent to the `Registry` Network, where the `Registry` Network decides if the `Prover` is providing the resources as per the capabilities it has advertised to the network.
+
+
+
+### Specifications
+Every dRTC Media Node needs to follow a certain set of specifications to be compatible with the dRTC network. These specifications are defined in the `dRTC Media Node Specs` and are designed to ensure that the Media Node is compatible with the network and can be used by any Orchestrator in the network.
+
+<Callout>
+If you are interested in building your own dRTC compatible Media Node, you can read more about the specifications of Media Node compatible with the dRTC network here [Read More](/specs/specifications/media-node/specifications).
+</Callout>
