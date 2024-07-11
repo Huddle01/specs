@@ -1,46 +1,60 @@
 ---
 title: General
-description: These nodes are responsible for processing and managing media streams (audio/video).
+description: Media nodes process and manage audio and video streams.
 ---
 
 import { Callout } from 'fumadocs-ui/components/callout';
 
-These are the Nodes which are responsible for processing and managing media streams (audio/video). They are at the core of the network.
-Media nodes are responsible for encoding, decoding, mixing, and routing media streams in the network. They provide the most important
-resources such as CPU, and bandwidth to the network. In short, these nodes are what make the network work.
+Media nodes are processing and managing media streams (audio/video) within the network. 
+They handle encoding, decoding, mixing, and routing of media streams. These nodes are fundamental 
+to the network's functionality by supporting the core tasks required for media stream management. 
 
-<Callout type="info">
-The utility provided by the media nodes is to provide resources for a scalable and realiable way to process and route media stream in the network of dRTC.
-</Callout>
+## Media Nodes in dRTC Network
 
-In this section, we will discuss the architecture, lifecycle, and components of the Media Node. We will also discuss how the Media Node interacts with the Orchestrator and Registry Networks.
+![Image](/media-node-overview.png)
 
-## Architecture
-Every Media Node is composed of different components that work together to provide the interface required to process and route media streams.
-The modules are divided as follows:
- 1. **Media Engine**: This module runs a `Selective Forwarding Unit (SFU)`, Which is responsible for managing different WebRTC connections and routing media packets between those connection.
- SFUs are the core building block for any media node, We will deep dive into the working of the media engine in the next section.
- 2. **RPC Module**: Its responsible for handling the communication between the Media Node and any Orchestrator, Media Nodes in itself are designed to act
- as a worker in the network and based on the instructions from the Orchestrator they take different actions.
- 3. **Registry Module**: Its responsible for handling the communication between the Media Node and the Registry Network, Any Media Node if is ready to provide there resources
- must advertise itself to the Registry Network with the capabilities it can provide.
- 4. **QoS Module**: Its responsible for handling the `Quality of Service` of any Media Node. Its kept in here to have checks and balances
- on the resources provided by the Media Node and also to ensure that the Media Node is providing the resources as per the capabilities it has advertised to the network.
+The Media Node is the backbone of the Huddle01 network. 
+When a user joins a conversation, the Orchestrator selects a 
+media node from those available in the registry, 
+based on resource usage and geographical proximity. 
+Once selected, the media node allocates resources to 
+handle the media traffic to and from the user. This infrastructure 
+is for media processing and routing within the Huddle01 network, 
+ensuring RTC connectivity between the users.
 
 ## Lifecycle
-The lifecycle of the Media Node is very simple, It can be broken down into simple steps:
-1. **Bootup**: Media Node boots up and starts the Media Engine with the capabilities it has.
-2. **Register**: Media Node advertises itself to the Registry Network with the capabilities it can provide.
-3. **Orchestration**: Media Node waits for the instructions from the Orchestrator Network.
-4. **Quality of Service**: This Module is always running in the background to ensure Media Nodes are providing the resources as per the capabilities they have advertised.
 
-## Components
+The lifecycle of the Media Node consists of four simple steps:
 
-### Media Engine
-Every dRTC Media Node uses several different protocols of communication to interact with different systems in the network such as WebRTC, RTP, RTCP, HTTP/2 etc.
-The Media Engine at the core is a SFU (Selective Forwarding Unit) which is responsible for managing different WebRTC connections and routing media packets between those connections.
+1. **Bootup**: The Media Node starts up and initializes the Media Engine with its capabilities.
+2. **Register**: It advertises its capabilities to the Registry Network.
+3. **Orchestration**: The Media Node awaits instructions from the Orchestrator Network.
+4. **Quality of Service**: This module runs continuously in the background to ensure the Media Node delivers resources as advertised.
 
-There are mutliple OSS implementations of SFUs available
+## API
+
+The Media Node API allows external systems to interact with 
+Media Nodes, facilitating the control and monitoring of media resources. 
+
+Key functionalities of the API include:
+
+1. **Resource Allocation**: Endpoints for allocating media resources based on 
+current network demands and node capabilities.
+
+2. **WebRTC Connection**: Methods to establish and manage WebRTC 
+connections between clients and media nodes, ensuring seamless media streaming.
+
+3. **Quality Monitoring**: Tools for tracking performance metrics, 
+enabling continuous monitoring to ensure Quality of Service (QoS) 
+standards are met.
+
+
+## Media Engine
+
+At its core, the Media Engine functions as a Selective Forwarding Unit (SFU), responsible for managing WebRTC connections and routing media packets between them.
+
+There are multiple open-source implementations of SFUs available:
+
 - [Janus](https://github.com/meetecho/janus-gateway)
 - [Jitsi](https://github.com/jitsi/jitsi-videobridge)
 - [Kurento](https://github.com/Kurento/kurento)

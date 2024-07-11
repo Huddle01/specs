@@ -2,3 +2,100 @@
 title: Architecture
 description: Architecture of the Media Node
 ---
+
+![Image](/media-node-module.png)
+
+In this section, we look into the architecture, 
+lifecycle, and modules of the Media Node, 
+its interactions with Orchestrator, Registry, and other Media Node.
+
+## Modules
+
+The Media Node comprises several integrated components that 
+facilitate processing and routing of media streams:
+
+1. **Media Engine**: At the core of each Media Node is the Media Engine, 
+which hosts a Selective Forwarding Unit (SFU). 
+The SFU manages WebRTC connections, efficiently 
+routing media packets between these connections. 
+This enables real-time media processing and distribution.
+
+2. **RPC Module**: Responsible for facilitating communication between 
+the Media Node and Orchestrator, the RPC Module enables 
+the Media Node to function as a dynamic participant within the network. 
+It follows instructions from the Orchestrator, 
+adapting its operations as required based on network conditions and demand.
+
+3. **Registry Module**: The Registry Module acts as the liaison between 
+the Media Node and the Registry Network. 
+It ensures that each Media Node effectively advertises 
+its available resources and capabilities to the network. 
+This proactive approach enables efficient resource allocation 
+and utilization across the ecosystem.
+
+4. **QoS Module**: Ensuring Quality of Service (QoS) checks is the 
+responsibility of the QoS Module within the Media Node. 
+This module monitors by maintaining checks 
+in accordance with predefined standards and expectations.
+
+Each of these modules necessary for the Media Node to function
+effectively within distributed media processing and delivery networks. 
+Together, they ensure robust performance, scalability, and 
+adaptability, making Media Node the backbone of the dePIN Network.
+
+## Lifecycle
+
+### 1. Bootup
+In the bootup phase, the Media Node powers up and initializes its Media Engine.
+This engine is equipped with the capabilities necessary for media processing, 
+preparing the node to handle tasks such as encoding, decoding, 
+and routing media streams.
+
+### 2. Register
+Once initialized, the Media Node advertises its capabilities to the 
+Registry Network. This registration step allows the node to 
+communicate its available resources and services, making it 
+discoverable by the Orchestrator and other network components.
+
+### 3. Orchestration
+After registration, the Media Node enters the orchestration phase, 
+where it awaits instructions from the Orchestrator Network. 
+The Orchestrator assigns tasks and manages resource allocation, 
+ensuring efficient media handling based on the network's needs.
+
+### 4. Quality of Service
+Throughout its operation, the Quality of Service (QoS) module runs 
+in the background. This module continuously monitors the Media Node's 
+performance, ensuring it delivers resources and maintains the service 
+levels as advertised, thereby guaranteeing reliable media processing 
+and routing.
+
+## Communications
+
+The Media node announce it's availability to the Registry, 
+and periodically updates its status. The Orchestrator 
+queries the Registry for available Media Nodes, and if a client proximity 
+and resource availability match, the Orchestrator instructs the Media Node 
+through the RPC module to allocate resources for the client.
+
+Important note here is the direction of the communication. 
+It is a simplex communication from the Media Node to the Registry,
+whereas the Orchestrator instructs the Media Node to allocate resources.
+
+### Media Node to Registry
+
+The Media Node announces its availability to the Registry 
+using the Registry Module.
+
+### Orchestrator to Media Node
+
+The Orchestrator sends command and requests to the Media Node 
+using the RPC Module.
+
+### Media Node to Media Node
+
+The orchestrator may instruct the Media Node to establish 
+communication or media data channel with another Media Node 
+to support cascading.
+
+

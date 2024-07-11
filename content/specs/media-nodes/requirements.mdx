@@ -3,4 +3,38 @@ title: Requirements
 description: Requirements for running an Media Node
 ---
 
-TBD
+## Requirements for Media Node
+
+### Network Requirements
+- **Bandwidth**: Sufficient bandwidth to handle multiple simultaneous audio and video streams.
+- **Ports**: Open ports for WebRTC connections.
+
+Minimal requirements for network connectivity are:
+```
+- 1 Gbps Ethernet connection
+- Open ports one per every worker
+```
+
+### Hardware Requirements
+- **CPU**: Multi-core processor, preferably with high clock speed, to handle media encoding/decoding and routing.
+- **Memory**: Adequate RAM to manage multiple concurrent streams (minimum 16GB recommended).
+- **Storage**: Sufficient disk space for logging and temporary storage of media streams.
+- **Network Interface**: High-performance network interface card (NIC) to manage high data throughput.
+
+Minimal hardware requirements are:
+```
+- CPU: 4 core CPU
+- Memory: 8 GB RAM
+- Storage: 10 GB SSD
+```
+
+### Software Requirements
+- **Operating System**: Linux-based OS (e.g., Ubuntu, CentOS) for better performance and compatibility.
+- **Dependencies**: Required libraries and tools such as Node.js, npm, and Docker.
+
+Currently the following operation system and software versions are supported:
+```
+- Ubuntu 20.04 LTS
+- Node.js ^18.x
+```
+

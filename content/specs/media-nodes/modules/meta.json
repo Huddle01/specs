@@ -1,0 +1,10 @@
+{
+  "title": "Modules",
+  "root": false,
+  "pages": [
+    "qos-module",
+    "rpc-module",
+    "media-engine-module",
+    "registry-module"
+  ]
+}
