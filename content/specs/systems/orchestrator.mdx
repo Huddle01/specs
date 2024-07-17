@@ -3,4 +3,44 @@ title: Orchestrator
 description: Orchestrator is the entry point for the dRTC Network. It is responsible for managing the network's nodes and facilitating communication between them.
 ---
 
-# Introduction
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { FastForward, Cpu, FileStack, Globe, Package } from 'lucide-react';
+
+This is system in the dRTC network which is responsible for managing Media Nodes such that different Clients can utilise the resources provided by the Media Nodes.
+Orchestrators are a key component of any large-scale distributed system. In the dRTC network the Orchestrators is the key component which allows the network
+to be used at scale and actually be able to provide the `sub-second latency` and `high-quality video transmission` the network is designed for.
+
+<Callout>
+    Orchestration of Media Nodes is the key concept which is needed to be understood to understand the dRTC network.
+</Callout>
+
+## Where to go next?
+<Cards className='w-full' >
+  <Card
+    title="Why we need Orchestration?"
+    href="/specs/systems/media-node#architecture"
+    icon={<Package />}
+    description="Learn how the Orchestrator works in the dRTC network."
+    className='w-full'
+  />
+  <Card
+    title="Orchestrator as a Gateway"
+    icon={<FastForward />}
+    href="/specs/systems/media-node#cascading"
+    description="Learn how the Orchestrator acts as a gateway for the dRTC network."
+    className='w-full'
+  />
+  <Card 
+    title = "Cascading and Orchestrator"
+    icon = {<Cpu />}
+    href = "/specs/systems/media-node#why-a-worker"
+    description = "Learn how the Orchestrator and Media Node work together to provide the cascading in dRTC network."
+    className = 'w-full'
+  />
+</Cards>
+
+
+The whole dRTC network is a big distributed system that consists of media nodes which are providing resource such as `CPU` and `Bandwidth` to the network.
+These Media Nodes are running the dRTC network to provide sub-second latency and high-quality video transmission. But these Nodes needs to be manage on how to
+utilise there resources. To better understand why we need an Orchestrator 

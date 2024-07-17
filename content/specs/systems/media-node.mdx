@@ -157,8 +157,8 @@ The RPC Module is responsible for handling the communication between the Media N
 The RPC Module is built on top of `gRPC` and uses `HTTP/2` for communication between the Media Node and the Orchestrator. The RPC Module is designed to be highly scalable and fault tolerant, and can handle a large number of requests from the Orchestrator.
 
 ### Why a Worker?
-While building the dRTC network, we wanted to build a network where users can monetize their resources by providing services to the network. The concept of Media Nodes self aligning themselves and providing resources to the network is a powerful concept, but 
-becomes totally useless for larger scheme of things such as when thinking about `Cascading`, `QoS`, `Rate Limiting` etc. Every application trying to leverage the dRTC network will have different requirements and the a single set of protocol and standards can never fulfill all the requirements.
+While building the dRTC network, we wanted to build a network where users can monetize their resources by providing services to the network. The concept of Media Nodes self aligning themselves and doing leader election to provide resources to the network is a powerful concept and honestly seems like an ideal system, but 
+becomes totally useless for larger scheme of things such as when thinking about `Cascading`, `QoS`, `Rate Limiting` etc, basically when we start asking questions of exactly how application building on RTC solves these complex problems. Every application trying to leverage the dRTC network will have different requirements and the a single set of protocol and standards can never fulfill all the requirements.
 Thus the concept of `Orchestrator` comes into play, where any application can build their own Orchestrator based on their requirements and use the resources of the Media Nodes in the network. 
 
 <Callout>
