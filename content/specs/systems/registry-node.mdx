@@ -5,15 +5,24 @@ description: Registry Node is the entry point for the dRTC Network. It is respon
 
 import { Callout } from 'fumadocs-ui/components/callout';
 
-The Registry Node is the entry point for the dRTC Network. It is responsible for managing the network's nodes and facilitating communication between them. The Registry Node is responsible for handling the onboarding and offboarding of media nodes, updating the status of the media nodes, and providing the demand side with the ability to query the network for available media nodes.
+> The Registry Node is the entry point for the dRTC Network. It is responsible for managing the network's nodes and facilitating communication between them. The Registry Node is responsible for handling the onboarding and offboarding of media nodes, updating the status of the media nodes, and providing the demand side with the ability to query the network for available media nodes.
+
+- this sentence is a copy-paste (^CP) from the orchestrator md. 
 
 <Callout type="info">
 The utility provided by the registry nodes is to provide a way to manage and query the network of media nodes in a scalable and reliable way.
 </Callout>
 
+ - don't understand what the utility is here.
+
 ## Architecture
 
-The Registry Node is composed of different components that work together to provide the interface required to manage the network's nodes.
+> The Registry Node is composed of different components that work together to provide the interface required to manage the network's nodes.
+
+seems something I wrote but maybe you, but still it is bad. It should be just simply: "The Registry contains the following modules" 
+and you don't need to explain why we need to have this modules, or what we achieve when we put together all of this.
+What we achieve if we put together all of this should be clear from the introduction of the registry node.
+
 The modules are divided as follows:
 
 1. **RPC Module**: is reponsible for handling requests from the media nodes like joining the network, leaving the network, and updating the status of the media nodes.
@@ -27,3 +36,6 @@ The modules are divided as follows:
 5. **DataStore Module**: is responsible for storing the information about the media nodes in the network. This information includes the IP address, port, and status of the media nodes. Data is stored using Conflict Free Replicated Data Types (CRDTs) to ensure consistency across the network.
 
 5. **Incentive Module**: This module is responsible for triggering the incentives for the media nodes depending on their reputation and the demand for their resources.
+
+
+not enough information, I don't see a story here.
